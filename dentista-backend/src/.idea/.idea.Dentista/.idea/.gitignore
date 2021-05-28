@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.Dentista.iml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Users\pablo\Desktop\dentista\src\.idea\.idea.Dentista\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
