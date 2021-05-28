@@ -8,6 +8,7 @@
     <Folder Include="DTOs\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\Repositories" />
   </ItemGroup>
 
 </Project>
