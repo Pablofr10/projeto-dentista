@@ -10,7 +10,8 @@ namespace Dentista.Infrastructure.Commom
     {
         public DentistaDbContext CreateDbContext(string[] args)
         {
-            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            //var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") || "Development";
+            var environmentName = "Development";
 
             var fileName = Directory.GetCurrentDirectory() + $"/../Dentista.API/appsettings.{environmentName}.json";
 
