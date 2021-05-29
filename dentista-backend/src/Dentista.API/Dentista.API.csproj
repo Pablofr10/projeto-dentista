@@ -14,4 +14,8 @@
     <Folder Include="Dependences\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dentista.Infrastructure\Dentista.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Maps" />
     <Folder Include="Repositories" />
   </ItemGroup>
 
@@ -15,10 +14,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-preview.4.21253.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-preview.4.21253.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dentista.Core\Dentista.Core.csproj" />
   </ItemGroup>
 
 </Project>
