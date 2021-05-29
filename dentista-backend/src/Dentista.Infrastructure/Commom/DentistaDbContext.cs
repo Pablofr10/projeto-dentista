@@ -6,7 +6,6 @@ namespace Dentista.Infrastructure.Commom
     public sealed class DentistaDbContext : DbContext
     {
         public DbSet<Paciente> Pacientes { get; set; }
-        public DbSet<Contato> Contatos { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<Procedimento> Procedimentos { get; set; }
         public DbSet<Profissional> Profissionais { get; set; }

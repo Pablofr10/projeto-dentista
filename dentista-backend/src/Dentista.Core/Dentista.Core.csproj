@@ -11,4 +11,9 @@
     <Folder Include="Interfaces\Repositories" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Entities\Contato.cs" />
+    <Compile Remove="Entities\Dentista.cs" />
+  </ItemGroup>
+
 </Project>

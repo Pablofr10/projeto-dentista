@@ -11,5 +11,8 @@ namespace Dentista.Core.Entities
         public decimal Preco { get; set; }
         public int ProcedimentoId { get; set; }
         public Procedimento Procedimento { get; set; }
+        public int ProfissionalId { get; set; }
+        public Profissional Profissional { get; set; }
+        
     }
 }
