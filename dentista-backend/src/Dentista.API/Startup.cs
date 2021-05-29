@@ -1,3 +1,4 @@
+using System.Reflection;
 using Dentista.Infrastructure.Commom;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,10 +24,12 @@ namespace Dentista.API
         {
             services.AddDbContext<DentistaDbContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("App"));
+                options.UseNpgsql(Configuration.GetConnectionString("App"),
+                    assembly => assembly.MigrationsAssembly(typeof(DentistaDbContext).Assembly.FullName));
             });
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(opt =>
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dentista.API", Version = "v1" });

@@ -7,8 +7,9 @@ namespace Dentista.Infrastructure.Commom
     {
         public DbSet<Paciente> Pacientes { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
-        public DbSet<Procedimento> Procedimentos { get; set; }
+        public DbSet<Especialidade> Especialidades { get; set; }
         public DbSet<Profissional> Profissionais { get; set; }
+        public DbSet<Consulta> Consultas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

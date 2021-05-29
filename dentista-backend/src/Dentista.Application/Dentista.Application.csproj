@@ -10,4 +10,8 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dentista.Core\Dentista.Core.csproj" />
+  </ItemGroup>
+
 </Project>
