@@ -28,7 +28,8 @@ namespace Dentista.API
                     assembly => assembly.MigrationsAssembly(typeof(DentistaDbContext).Assembly.FullName));
             });
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(opt =>
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dentista.API", Version = "v1" });
