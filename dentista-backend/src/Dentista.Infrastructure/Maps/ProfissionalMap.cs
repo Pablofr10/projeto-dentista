@@ -6,14 +6,14 @@ namespace Dentista.Infrastructure.Maps
 {
     public class ProfissionalMap : BaseMap<Profissional>
     {
-        public ProfissionalMap() : base("tb_pagamento")
+        public ProfissionalMap() : base("tb_profissional")
         {}
 
         public override void Configure(EntityTypeBuilder<Profissional> builder)
         {
             base.Configure(builder);
 
-            builder.Property(x => x.Nome).HasColumnName("nome").HasMaxLength(2).IsRequired();
+            builder.Property(x => x.Nome).HasColumnName("nome").HasMaxLength(100).IsRequired();
 
             builder.HasMany(x => x.Especialidades)
                 .WithMany(x => x.Profissionais)
@@ -28,6 +28,8 @@ namespace Dentista.Infrastructure.Maps
 
                         x.Property(p => p.ProcedimentoId).HasColumnName("id_procedimento").IsRequired();
                         x.Property(p => p.ProfissionalId).HasColumnName("id_profissional").IsRequired();
+                        x.Property(p => p.Status).HasColumnName("status").IsRequired();
+                        x.Property(p => p.CriadoEm).HasColumnName("criado_em").IsRequired();
                     }
                 );
 
