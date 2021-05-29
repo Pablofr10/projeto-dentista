@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Request" />
-    <Folder Include="Response" />
     <Folder Include="Services\" />
   </ItemGroup>
 

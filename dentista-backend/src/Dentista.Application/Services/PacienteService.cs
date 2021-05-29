@@ -1,15 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dentista.Core.Entities;
+using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
 
 namespace Dentista.Application.Services
 {
     public class PacienteService : IPacienteService
     {
-        public Task<IEnumerable<Paciente>> BuscarPacientes()
+        private readonly IPacienteRepository _repository;
+
+        public PacienteService(IPacienteRepository repository)
         {
-            throw new System.NotImplementedException();
+            _repository = repository;
+        }
+        public async Task<IEnumerable<Paciente>> BuscarPacientes()
+        {
+            var pacientes = await _repository.Get();
+
+            return pacientes;
         }
 
         public Task<Paciente> BuscarPacientePorId(int idPaciente)
