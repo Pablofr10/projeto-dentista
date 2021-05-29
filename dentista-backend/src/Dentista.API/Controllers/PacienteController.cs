@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Dentista.Core.Entities;
+﻿using System.Threading.Tasks;
 using Dentista.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,10 +16,16 @@ namespace Dentista.API.Controllers
         }
         
         [HttpGet]
-        public async Task<IEnumerable<Paciente>> GetPacientes()
+        public async Task<IActionResult> GetPacientes()
         {
             var pacientes = await _service.BuscarPacientes();
-            return pacientes;
+            
+            if (pacientes != null)
+            {
+                return Ok(pacientes);
+            }
+            
+            return BadRequest();
         }
     }
 }

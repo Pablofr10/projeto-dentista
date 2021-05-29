@@ -12,16 +12,12 @@ namespace Dentista.API.Dependencies
         public static void Register(IServiceCollection serviceProvider)
         {
             ServiceDependence(serviceProvider);
-            RepositoryDependence(serviceProvider);
         }
         private static void ServiceDependence(IServiceCollection serviceProvider)
         {
             serviceProvider.AddScoped<IPacienteService, PacienteService>();
-        }
-        
-        private static void RepositoryDependence(IServiceCollection serviceProvider)
-        {
             serviceProvider.AddScoped<IPacienteRepository, PacienteRepository>();
+
         }
     }
 }

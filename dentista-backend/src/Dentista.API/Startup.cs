@@ -31,6 +31,7 @@ namespace Dentista.API
             });
 
             DependencyInjection.Register(services);
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers().AddNewtonsoftJson(opt =>
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
