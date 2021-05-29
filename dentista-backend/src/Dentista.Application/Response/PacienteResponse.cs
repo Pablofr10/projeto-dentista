@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace Dentista.Core.DTOs
+namespace Dentista.Application.Response
 {
-    public class PacienteDto : BaseDto
+    public class PacienteResponse
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string Endereco { get; set; }
         public int CEP { get; set; }

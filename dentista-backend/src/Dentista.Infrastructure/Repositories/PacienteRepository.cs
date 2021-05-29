@@ -25,9 +25,14 @@ namespace Dentista.Infrastructure.Repositories
             return pacientes;
         }
 
-        public Task<Paciente> Get(int idPaciente)
+        public async Task<Paciente> Get(int idPaciente)
         {
-            throw new System.NotImplementedException();
+            var paciente = await _context.Pacientes
+                .Include(x => x.Consultas)
+                .Where(x => x.Id == idPaciente)
+                .FirstOrDefaultAsync();
+
+            return paciente;
         }
 
         public Task<bool> Post(Paciente paciente)

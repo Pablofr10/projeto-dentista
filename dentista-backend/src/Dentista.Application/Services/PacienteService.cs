@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Dentista.Application.Response;
 using Dentista.Core.DTOs;
 using Dentista.Core.Entities;
 using Dentista.Core.Interfaces.Repositories;
@@ -23,14 +24,18 @@ namespace Dentista.Application.Services
         {
             var pacientes = await _repository.Get();
 
-            var pacientesResponse = _mapper.Map<List<PacienteDto>>(pacientes);
+            var pacientesRetorno= _mapper.Map<List<PacienteDto>>(pacientes);
 
-            return pacientesResponse;
+            return pacientesRetorno;
         }
 
-        public Task<PacienteDto> BuscarPacientePorId(int idPaciente)
+        public async Task<PacienteDto> BuscarPacientePorId(int idPaciente)
         {
-            throw new System.NotImplementedException();
+            var paciente = await _repository.Get(idPaciente);
+
+            var pacienteRetorno = _mapper.Map<PacienteDto>(paciente);
+
+            return pacienteRetorno;
         }
 
         public Task<bool> AdicionarPaciente(Paciente paciente)

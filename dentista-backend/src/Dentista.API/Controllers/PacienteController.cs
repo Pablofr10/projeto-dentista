@@ -27,5 +27,18 @@ namespace Dentista.API.Controllers
             
             return BadRequest();
         }
+        
+        [HttpGet("{idPaciente}")]
+        public async Task<IActionResult> GetPacientes(int idPaciente)
+        {
+            var paciente = await _service.BuscarPacientePorId(idPaciente);
+            
+            if (paciente != null)
+            {
+                return Ok(paciente);
+            }
+            
+            return BadRequest();
+        }
     }
 }
