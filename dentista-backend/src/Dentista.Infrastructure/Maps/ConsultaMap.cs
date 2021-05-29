@@ -14,7 +14,9 @@ namespace Dentista.Infrastructure.Maps
             base.Configure(builder);
 
             builder.Property(x => x.Status).HasColumnName("status").HasMaxLength(1).IsRequired();
-            builder.Property(x => x.Preco).HasColumnName("preco").IsRequired();
+            
+            builder.Property(x => x.PagamentoId).HasColumnName("id_pagamento").IsRequired();
+            builder.HasOne(x => x.Pagamento).WithMany().HasForeignKey(x => x.PagamentoId);
 
             builder.Property(x => x.ProfissionalId).HasColumnName("id_profissional").IsRequired();
             builder.HasOne(x => x.Profissional).WithMany().HasForeignKey(x => x.ProfissionalId);

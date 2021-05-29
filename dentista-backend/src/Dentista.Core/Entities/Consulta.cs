@@ -8,7 +8,8 @@ namespace Dentista.Core.Entities
         public string NomeDentista { get; set; }
         public DateTime CriadoEm { get; set; }
         public int Status { get; set; }
-        public decimal Preco { get; set; }
+        public int PagamentoId { get; set; }
+        public Pagamento Pagamento { get; set; }
         public int ProcedimentoId { get; set; }
         public Procedimento Procedimento { get; set; }
         public int ProfissionalId { get; set; }
