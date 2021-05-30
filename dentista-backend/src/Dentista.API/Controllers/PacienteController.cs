@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dentista.Core.DTOs;
 using Dentista.Core.Interfaces.Services;
+using Dentista.Core.Params;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentista.API.Controllers
@@ -17,9 +18,9 @@ namespace Dentista.API.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> GetPacientes()
+        public async Task<IActionResult> GetPacientes([FromQuery]PacienteParams pacienteParams)
         {
-            var pacientes = await _service.BuscarPacientes();
+            var pacientes = await _service.BuscarPacientes(pacienteParams);
             
             if (pacientes != null)
             {

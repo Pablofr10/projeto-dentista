@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Dentista.Application.Response;
 using Dentista.Core.DTOs;
 using Dentista.Core.Entities;
 using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
+using Dentista.Core.Params;
 
 namespace Dentista.Application.Services
 {
@@ -22,9 +21,9 @@ namespace Dentista.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<PacienteDto>> BuscarPacientes()
+        public async Task<IEnumerable<PacienteDto>> BuscarPacientes(PacienteParams pacienteParams)
         {
-            var pacientes = await _repository.Get();
+            var pacientes = await _repository.Get(pacienteParams);
 
             var pacientesRetorno = _mapper.Map<List<PacienteDto>>(pacientes);
 

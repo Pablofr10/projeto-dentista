@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dentista.Core.Entities;
 using Dentista.Core.Interfaces.Repositories;
+using Dentista.Core.Params;
 using Dentista.Infrastructure.Commom;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +18,28 @@ namespace Dentista.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Paciente>> Get()
+        public async Task<IEnumerable<Paciente>> Get(PacienteParams pacienteParam)
         {
-            var pacientes = await _context.Pacientes
-                .ToListAsync();
+            var pacientes = _context.Pacientes
+                .AsQueryable();
 
-            return pacientes;
+            if (!string.IsNullOrEmpty(pacienteParam.Cidade))
+            {
+                var cidade = pacienteParam.Cidade.ToLower().Trim();
+                pacientes = pacientes.Where(p => p.Cidade.ToLower().Contains(cidade));
+            }
+            
+            if (pacienteParam.Situacao == "ativo")
+            {
+                pacientes = pacientes.Where(p => p.Ativo);
+            }
+            
+            if (pacienteParam.Situacao == "inativo")
+            {
+                pacientes = pacientes.Where(p => !p.Ativo);
+            }
+            
+            return await pacientes.ToListAsync();
         }
 
         public async Task<Paciente> Get(int idPaciente)
