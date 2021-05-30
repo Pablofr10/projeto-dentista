@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dentista.Core.Entities;
+using Dentista.Core.Params;
 
 namespace Dentista.Core.Interfaces.Repositories
 {
-    public interface IPacienteRepository
+    public interface IPacienteRepository : IBaseRepository
     {
-        Task<IEnumerable<Paciente>> Get();
+        Task<IEnumerable<Paciente>> Get(PacienteParams pacienteParam);
         Task<Paciente> Get(int idPaciente);
-        Task<bool> Post(Paciente paciente);
-        Task<bool> Put(Paciente paciente);
-        Task<bool> Delete(int id);
     }
 }

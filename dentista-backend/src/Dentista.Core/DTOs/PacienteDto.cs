@@ -13,5 +13,6 @@ namespace Dentista.Core.DTOs
         public string Telefone { get; set; }
         public string Celular { get; set; }
         public int ConsultasFinalizadas { get; set; }
+        public bool Ativo { get; set; }
     }
 }

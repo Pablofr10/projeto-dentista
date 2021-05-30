@@ -1,12 +1,12 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Dentista.Application.Response;
 using Dentista.Core.DTOs;
 using Dentista.Core.Entities;
 using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
+using Dentista.Core.Params;
 
 namespace Dentista.Application.Services
 {
@@ -20,11 +20,12 @@ namespace Dentista.Application.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<PacienteDto>> BuscarPacientes()
-        {
-            var pacientes = await _repository.Get();
 
-            var pacientesRetorno= _mapper.Map<List<PacienteDto>>(pacientes);
+        public async Task<IEnumerable<PacienteDto>> BuscarPacientes(PacienteParams pacienteParams)
+        {
+            var pacientes = await _repository.Get(pacienteParams);
+
+            var pacientesRetorno = _mapper.Map<List<PacienteDto>>(pacientes);
 
             return pacientesRetorno;
         }
@@ -38,19 +39,69 @@ namespace Dentista.Application.Services
             return pacienteRetorno;
         }
 
-        public Task<bool> AdicionarPaciente(Paciente paciente)
+        public async Task<bool> AdicionarPaciente(PacienteDto paciente)
         {
-            throw new System.NotImplementedException();
+            var pacienteAdicionar = _mapper.Map<Paciente>(paciente);
+            _repository.Add(pacienteAdicionar);
+
+            if (await _repository.SaveChangesAsync())
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        public Task<bool> AtualizarPaciente(Paciente paciente)
+        public async Task<bool> AtualizarPaciente(int idPaciente, PacienteDto paciente)
         {
-            throw new System.NotImplementedException();
+            if (idPaciente < 1)
+            {
+                throw new ArgumentException("Informe o paciente para ser atualizado");
+            }
+
+            var pacienteBanco = await _repository.Get(idPaciente);
+
+            if (pacienteBanco == null)
+            {
+                throw new ArgumentException("Paciente não encontrado");
+            }
+
+            _mapper.Map(paciente, pacienteBanco);
+
+            _repository.Update(pacienteBanco);
+
+            if (await _repository.SaveChangesAsync())
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        public Task<bool> DeletarPaciente(int id)
+        public async Task<bool> MudarStatusPaciente(int idPaciente, bool ativo)
         {
-            throw new System.NotImplementedException();
+            if (idPaciente < 1)
+            {
+                throw new ArgumentException("Paciente não encontrado");
+            }
+
+            var paciente = await _repository.Get(idPaciente);
+
+            if (paciente == null)
+            {
+                throw new ArgumentException("Paciente não encontrado");
+            }
+
+            paciente.Ativo = ativo;
+
+            _repository.Update(paciente);
+
+            if (await _repository.SaveChangesAsync())
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

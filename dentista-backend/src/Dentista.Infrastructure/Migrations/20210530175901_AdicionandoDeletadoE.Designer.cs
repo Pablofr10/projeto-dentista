@@ -4,14 +4,16 @@ using Dentista.Infrastructure.Commom;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dentista.Infrastructure.Migrations
 {
     [DbContext(typeof(DentistaDbContext))]
-    partial class DentistaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210530175901_AdicionandoDeletadoE")]
+    partial class AdicionandoDeletadoE
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,10 +134,6 @@ namespace Dentista.Infrastructure.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnType("boolean")
-                        .HasColumnName("ativo");
-
                     b.Property<int>("CEP")
                         .HasMaxLength(8)
                         .HasColumnType("integer")
@@ -156,6 +154,10 @@ namespace Dentista.Infrastructure.Migrations
                     b.Property<DateTime>("CriadoEm")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("criado_em");
+
+                    b.Property<DateTime>("DataExclusao")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("data_exclusao");
 
                     b.Property<string>("Endereco")
                         .IsRequired()
