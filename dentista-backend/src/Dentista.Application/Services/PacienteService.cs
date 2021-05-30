@@ -21,11 +21,12 @@ namespace Dentista.Application.Services
             _repository = repository;
             _mapper = mapper;
         }
+
         public async Task<IEnumerable<PacienteDto>> BuscarPacientes()
         {
             var pacientes = await _repository.Get();
 
-            var pacientesRetorno= _mapper.Map<List<PacienteDto>>(pacientes);
+            var pacientesRetorno = _mapper.Map<List<PacienteDto>>(pacientes);
 
             return pacientesRetorno;
         }
@@ -54,7 +55,7 @@ namespace Dentista.Application.Services
 
         public async Task<bool> AtualizarPaciente(int idPaciente, PacienteDto paciente)
         {
-            if (idPaciente == 0)
+            if (idPaciente < 1)
             {
                 throw new ArgumentException("Informe o paciente para ser atualizado");
             }
@@ -67,7 +68,7 @@ namespace Dentista.Application.Services
             }
 
             _mapper.Map(paciente, pacienteBanco);
-            
+
             _repository.Update(pacienteBanco);
 
             if (await _repository.SaveChangesAsync())
@@ -78,9 +79,30 @@ namespace Dentista.Application.Services
             return false;
         }
 
-        public Task<bool> DeletarPaciente(int id)
+        public async Task<bool> MudarStatusPaciente(int idPaciente, bool ativo)
         {
-            throw new System.NotImplementedException();
+            if (idPaciente < 1)
+            {
+                throw new ArgumentException("Paciente não encontrado");
+            }
+
+            var paciente = await _repository.Get(idPaciente);
+
+            if (paciente == null)
+            {
+                throw new ArgumentException("Paciente não encontrado");
+            }
+
+            paciente.Ativo = ativo;
+
+            _repository.Update(paciente);
+
+            if (await _repository.SaveChangesAsync())
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

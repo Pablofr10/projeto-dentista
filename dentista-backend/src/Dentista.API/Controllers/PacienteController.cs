@@ -67,5 +67,31 @@ namespace Dentista.API.Controllers
 
             return BadRequest("Erro ao Atualizado o paciente.");
         }
+        
+        [HttpPut("desativar/{idPaciente}")]
+        public async Task<IActionResult> DesativarPaciente(int idPaciente)
+        {
+            var isPacienteAdicionado = await _service.MudarStatusPaciente(idPaciente, false);
+
+            if (isPacienteAdicionado)
+            {
+                return Ok("Paciente Desativado.");
+            }
+
+            return BadRequest("Erro ao Desativar o paciente.");
+        }
+        
+        [HttpPut("ativar/{idPaciente}")]
+        public async Task<IActionResult> MudarStatusPaciente(int idPaciente)
+        {
+            var isPacienteAdicionado = await _service.MudarStatusPaciente(idPaciente, true);
+
+            if (isPacienteAdicionado)
+            {
+                return Ok("Paciente Ativado.");
+            }
+
+            return BadRequest("Erro ao Ativar o paciente.");
+        }
     }
 }

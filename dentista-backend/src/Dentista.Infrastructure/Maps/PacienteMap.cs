@@ -20,7 +20,7 @@ namespace Dentista.Infrastructure.Maps
             builder.Property(x => x.Telefone).HasColumnName("telefone").HasMaxLength(11).IsRequired();
             builder.Property(x => x.Celular).HasColumnName("celular").HasMaxLength(11).IsRequired();
             builder.Property(x => x.CriadoEm).HasColumnName("criado_em").IsRequired();
-            builder.Property(x => x.DataExclusao).HasColumnName("data_exclusao").IsRequired();
+            builder.Property(x => x.Ativo).HasColumnName("ativo").IsRequired();
             builder.Property(x => x.CEP).HasColumnName("cep").HasMaxLength(8).IsRequired();
         }
     }

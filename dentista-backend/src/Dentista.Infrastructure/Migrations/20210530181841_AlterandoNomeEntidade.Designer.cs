@@ -4,14 +4,16 @@ using Dentista.Infrastructure.Commom;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dentista.Infrastructure.Migrations
 {
     [DbContext(typeof(DentistaDbContext))]
-    partial class DentistaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210530181841_AlterandoNomeEntidade")]
+    partial class AlterandoNomeEntidade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

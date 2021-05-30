@@ -12,8 +12,7 @@ namespace Dentista.Core.Interfaces.Services
         Task<PacienteDto> BuscarPacientePorId(int idPaciente);
         Task<bool> AdicionarPaciente(PacienteDto paciente);
         Task<bool> AtualizarPaciente(int idPaciente, PacienteDto paciente);
-        Task<bool> DeletarPaciente(int id);
-
+        Task<bool> MudarStatusPaciente(int id, bool ativo);
     }
 
 }
