@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dentista.Infrastructure.Repositories
 {
-    public class PacienteRepository : IPacienteRepository
+    public class PacienteRepository : BaseRepository , IPacienteRepository
     {
         private readonly DentistaDbContext _context;
 
-        public PacienteRepository(DentistaDbContext context)
+        public PacienteRepository(DentistaDbContext context) : base(context)
         {
             _context = context;
         }
@@ -34,20 +34,6 @@ namespace Dentista.Infrastructure.Repositories
 
             return paciente;
         }
-
-        public Task<bool> Post(Paciente paciente)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<bool> Put(Paciente paciente)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<bool> Delete(int id)
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }

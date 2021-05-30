@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using AutoMapper;
-using Dentista.Application.Response;
+﻿using AutoMapper;
 using Dentista.Core.DTOs;
 using Dentista.Core.Entities;
-using Dentista.Core.Enums;
 
 namespace Dentista.API.Extensions
 {
@@ -11,7 +8,10 @@ namespace Dentista.API.Extensions
     {
         public AutoMapperProfiles()
         {
-            CreateMap<PacienteDto, Paciente>().ReverseMap();
+            CreateMap<Paciente, PacienteDto>();
+            CreateMap<PacienteDto, Paciente>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
         }
     }
 }

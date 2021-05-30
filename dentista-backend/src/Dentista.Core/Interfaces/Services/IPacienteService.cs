@@ -10,8 +10,8 @@ namespace Dentista.Core.Interfaces.Services
     {
         Task<IEnumerable<PacienteDto>> BuscarPacientes();
         Task<PacienteDto> BuscarPacientePorId(int idPaciente);
-        Task<bool> AdicionarPaciente(Paciente paciente);
-        Task<bool> AtualizarPaciente(Paciente paciente);
+        Task<bool> AdicionarPaciente(PacienteDto paciente);
+        Task<bool> AtualizarPaciente(int idPaciente, PacienteDto paciente);
         Task<bool> DeletarPaciente(int id);
 
     }

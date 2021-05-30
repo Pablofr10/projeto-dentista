@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -38,14 +39,43 @@ namespace Dentista.Application.Services
             return pacienteRetorno;
         }
 
-        public Task<bool> AdicionarPaciente(Paciente paciente)
+        public async Task<bool> AdicionarPaciente(PacienteDto paciente)
         {
-            throw new System.NotImplementedException();
+            var pacienteAdicionar = _mapper.Map<Paciente>(paciente);
+            _repository.Add(pacienteAdicionar);
+
+            if (await _repository.SaveChangesAsync())
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        public Task<bool> AtualizarPaciente(Paciente paciente)
+        public async Task<bool> AtualizarPaciente(int idPaciente, PacienteDto paciente)
         {
-            throw new System.NotImplementedException();
+            if (idPaciente == 0)
+            {
+                throw new ArgumentException("Informe o paciente para ser atualizado");
+            }
+
+            var pacienteBanco = await _repository.Get(idPaciente);
+
+            if (pacienteBanco == null)
+            {
+                throw new ArgumentException("Paciente não encontrado");
+            }
+
+            _mapper.Map(paciente, pacienteBanco);
+            
+            _repository.Update(pacienteBanco);
+
+            if (await _repository.SaveChangesAsync())
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public Task<bool> DeletarPaciente(int id)
