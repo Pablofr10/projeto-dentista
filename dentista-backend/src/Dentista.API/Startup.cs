@@ -1,8 +1,10 @@
 using System.Reflection;
+using Dentista.API.Dependencies;
 using Dentista.Infrastructure.Commom;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +29,9 @@ namespace Dentista.API
                 options.UseNpgsql(Configuration.GetConnectionString("App"),
                     assembly => assembly.MigrationsAssembly(typeof(DentistaDbContext).Assembly.FullName));
             });
+
+            DependencyInjection.Register(services);
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers().AddNewtonsoftJson(opt =>
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
