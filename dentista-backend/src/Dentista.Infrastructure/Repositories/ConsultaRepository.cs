@@ -22,6 +22,7 @@ namespace Dentista.Infrastructure.Repositories
             var consultas = _context.Consultas
                 .Include(x => x.Profissional)
                 .Include(x => x.Paciente)
+                .Include(x => x.Pagamento)
                 .Include(x => x.Especialidade);
 
             return await consultas.ToListAsync();
