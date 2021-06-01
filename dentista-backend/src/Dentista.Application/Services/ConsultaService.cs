@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dentista.Core.DTOs;
@@ -9,14 +10,15 @@ namespace Dentista.Application.Services
 {
     public class ConsultaService : IConsultaService
     {
-        private readonly IConsultaRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IConsultaRepository _repository;
 
         public ConsultaService(IConsultaRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
+
         public async Task<IEnumerable<ConsultaDto>> BuscarConsultas()
         {
             var consultas = await _repository.BuscarConsultas();
@@ -26,19 +28,23 @@ namespace Dentista.Application.Services
             return consultasRetorno;
         }
 
-        public Task<ConsultaDto> BuscarConsulta()
+        public async Task<ConsultaDto> BuscarConsulta(int idPaciente)
         {
-            throw new System.NotImplementedException();
+            var consulta = await _repository.BuscarConsulta(idPaciente);
+
+            var consultaRetorno = _mapper.Map<ConsultaDto>(consulta);
+
+            return consultaRetorno;
         }
 
         public Task<bool> MarcarConsulta()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task<bool> AtualizarConsulta()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

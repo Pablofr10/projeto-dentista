@@ -7,7 +7,7 @@ namespace Dentista.Core.Interfaces.Services
     public interface IConsultaService
     {
         Task<IEnumerable<ConsultaDto>> BuscarConsultas();
-        Task<ConsultaDto> BuscarConsulta();
+        Task<ConsultaDto> BuscarConsulta(int idPaciente);
         Task<bool> MarcarConsulta();
         Task<bool> AtualizarConsulta();
     }

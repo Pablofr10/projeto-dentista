@@ -1,14 +1,13 @@
-using System.Reflection;
 using Dentista.API.Dependencies;
 using Dentista.Infrastructure.Commom;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace Dentista.API
 {
@@ -34,10 +33,11 @@ namespace Dentista.API
             services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers().AddNewtonsoftJson(opt =>
-                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
+                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            ;
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dentista.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Dentista.API", Version = "v1"});
             });
         }
 
@@ -57,10 +57,7 @@ namespace Dentista.API
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

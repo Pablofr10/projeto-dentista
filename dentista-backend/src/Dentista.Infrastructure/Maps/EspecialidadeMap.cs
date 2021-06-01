@@ -7,7 +7,8 @@ namespace Dentista.Infrastructure.Maps
     public class EspecialidadeMap : BaseMap<Especialidade>
     {
         public EspecialidadeMap() : base("tb_especialidade")
-        {}
+        {
+        }
 
         public override void Configure(EntityTypeBuilder<Especialidade> builder)
         {

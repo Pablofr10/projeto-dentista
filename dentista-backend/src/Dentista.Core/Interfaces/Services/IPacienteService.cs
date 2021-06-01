@@ -1,8 +1,6 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dentista.Core.DTOs;
-using Dentista.Core.Entities;
 using Dentista.Core.Params;
 
 namespace Dentista.Core.Interfaces.Services
@@ -15,5 +13,4 @@ namespace Dentista.Core.Interfaces.Services
         Task<bool> AtualizarPaciente(int idPaciente, PacienteDto paciente);
         Task<bool> MudarStatusPaciente(int id, bool ativo);
     }
-
 }

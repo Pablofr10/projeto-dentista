@@ -20,12 +20,19 @@ namespace Dentista.API.Controllers
         {
             var consultas = await _service.BuscarConsultas();
 
-            if (consultas != null)
-            {
-                return Ok(consultas);
-            }
+            if (consultas != null) return Ok(consultas);
 
-            return BadRequest("Erro ao obter as consultas");
+            return BadRequest("Erro ao obter consultas");
+        }
+
+        [HttpGet("{idPaciente}")]
+        public async Task<IActionResult> Get(int idPaciente)
+        {
+            var consulta = await _service.BuscarConsulta(idPaciente);
+
+            if (consulta != null) return Ok(consulta);
+
+            return BadRequest("Erro ao obter consulta");
         }
     }
 }
