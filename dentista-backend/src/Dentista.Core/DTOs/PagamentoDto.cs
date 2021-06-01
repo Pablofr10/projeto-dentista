@@ -1,12 +1,13 @@
 ﻿using System;
+using Dentista.Core.Enums;
 
-namespace Dentista.Core.Entities
+namespace Dentista.Core.DTOs
 {
-    public class Pagamento : Base
+    public class PagamentoDto : BaseDto
     {
         public decimal Preco { get; set; }
         public DateTime PagoEm { get; set; }
-        public int Status { get; set; }
+        public StatusPagamento Status { get; set; }
         public string FormaPagamento { get; set; }
     }
 }

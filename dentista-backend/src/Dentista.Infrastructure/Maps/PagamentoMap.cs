@@ -16,7 +16,7 @@ namespace Dentista.Infrastructure.Maps
             builder.Property(x => x.Status).HasColumnName("status").HasMaxLength(2).IsRequired();
             builder.Property(x => x.Preco).HasColumnName("preco").HasPrecision(18,2).IsRequired();
             builder.Property(x => x.PagoEm).HasColumnName("pago_em");
-            builder.Property(x => x.FormaPagamento).HasColumnName("forma_pagamento").HasMaxLength(2);
+            builder.Property(x => x.FormaPagamento).HasColumnName("forma_pagamento").HasMaxLength(50);
 
         }
     }
