@@ -13,7 +13,7 @@ namespace Dentista.Core.Entities
         public List<Especialidade> Especialidades { get; set; }
         public int ProfissionalId { get; set; }
         public Profissional Profissional { get; set; }
-        public int PacienteId { get; set; }
         public Paciente Paciente { get; set; }
+        public int PacienteId { get; set; }
     }
 }

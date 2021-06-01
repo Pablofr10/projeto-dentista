@@ -31,7 +31,7 @@ namespace Dentista.Infrastructure.Repositories
         public async Task<Consulta> BuscarConsulta(int idPaciente)
         {
             var consultas = _context.Consultas
-                .Where(x => x.PacienteId == idPaciente)
+                .Where(x => x.Paciente.Id == idPaciente)
                 .Include(x => x.Profissional)
                 .Include(x => x.Paciente)
                 .Include(x => x.Pagamento)

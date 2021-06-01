@@ -8,9 +8,9 @@ namespace Dentista.Infrastructure.Maps
     {
         private readonly string _tableName;
 
-        public BaseMap(string _tableName)
+        public BaseMap(string tableName)
         {
-            this._tableName = _tableName;
+            _tableName = tableName;
         }
 
         public virtual void Configure(EntityTypeBuilder<TDomain> builder)
