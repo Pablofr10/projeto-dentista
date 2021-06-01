@@ -23,7 +23,7 @@ namespace Dentista.Infrastructure.Repositories
                 .Include(x => x.Profissional)
                 .Include(x => x.Paciente)
                 .Include(x => x.Pagamento)
-                .Include(x => x.Especialidade);
+                .Include(x => x.Especialidades);
 
             return await consultas.ToListAsync();
         }
@@ -35,7 +35,7 @@ namespace Dentista.Infrastructure.Repositories
                 .Include(x => x.Profissional)
                 .Include(x => x.Paciente)
                 .Include(x => x.Pagamento)
-                .Include(x => x.Especialidade);
+                .Include(x => x.Especialidades);
 
             return await consultas.FirstOrDefaultAsync();
         }

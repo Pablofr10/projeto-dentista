@@ -19,15 +19,15 @@ namespace Dentista.Infrastructure.Maps
             builder.HasMany(x => x.Especialidades)
                 .WithMany(x => x.Profissionais)
                 .UsingEntity<EspecialidadeProfissional>(
-                    x => x.HasOne(p => p.Especialidade).WithMany().HasForeignKey(p => p.ProcedimentoId),
+                    x => x.HasOne(p => p.Especialidade).WithMany().HasForeignKey(p => p.EspecialidadeId),
                     x => x.HasOne(p => p.Profissional).WithMany().HasForeignKey(p => p.ProfissionalId),
                     x =>
                     {
-                        x.ToTable("tb_procedimento_profissional");
+                        x.ToTable("tb_profissional_especialidade");
 
-                        x.HasKey(p => new {p.ProcedimentoId, p.ProfissionalId});
+                        x.HasKey(p => new {ProcedimentoId = p.EspecialidadeId, p.ProfissionalId});
 
-                        x.Property(p => p.ProcedimentoId).HasColumnName("id_procedimento").IsRequired();
+                        x.Property(p => p.EspecialidadeId).HasColumnName("id_especialidade").IsRequired();
                         x.Property(p => p.ProfissionalId).HasColumnName("id_profissional").IsRequired();
                         x.Property(p => p.Status).HasColumnName("status").IsRequired();
                         x.Property(p => p.CriadoEm).HasColumnName("criado_em").IsRequired();
