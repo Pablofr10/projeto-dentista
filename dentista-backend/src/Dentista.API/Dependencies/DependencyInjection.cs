@@ -17,6 +17,8 @@ namespace Dentista.API.Dependencies
         {
             serviceProvider.AddScoped<IPacienteService, PacienteService>();
             serviceProvider.AddScoped<IPacienteRepository, PacienteRepository>();
+            serviceProvider.AddScoped<IConsultaService, ConsultaService>();
+            serviceProvider.AddScoped<IConsultaRepository, ConsultaRepository>();
 
         }
     }

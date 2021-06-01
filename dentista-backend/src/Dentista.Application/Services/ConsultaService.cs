@@ -1,14 +1,28 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using Dentista.Core.DTOs;
+using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
 
 namespace Dentista.Application.Services
 {
     public class ConsultaService : IConsultaService
     {
-        public Task<ConsultaDto> BuscarConsultas()
+        private readonly IConsultaRepository _repository;
+        private readonly IMapper _mapper;
+
+        public ConsultaService(IConsultaRepository repository, IMapper mapper)
         {
-            throw new System.NotImplementedException();
+            _repository = repository;
+            _mapper = mapper;
+        }
+        public async Task<ConsultaDto> BuscarConsultas()
+        {
+            var consultas = await _repository.BuscarConsultas();
+
+            var consultasRetorno = _mapper.Map<ConsultaDto>(consultas);
+
+            return consultasRetorno;
         }
 
         public Task<ConsultaDto> BuscarConsulta()

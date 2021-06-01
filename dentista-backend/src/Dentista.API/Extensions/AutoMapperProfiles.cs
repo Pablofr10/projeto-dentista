@@ -11,7 +11,7 @@ namespace Dentista.API.Extensions
             CreateMap<Paciente, PacienteDto>();
             CreateMap<PacienteDto, Paciente>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-
+            CreateMap<Consulta, ConsultaDto>().ReverseMap();
         }
     }
 }
