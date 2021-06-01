@@ -7,6 +7,6 @@ namespace Dentista.Core.Entities
         public decimal Preco { get; set; }
         public DateTime PagoEm { get; set; }
         public int Status { get; set; }
-        public int FormaPagamento { get; set; }
+        public string FormaPagamento { get; set; }
     }
 }

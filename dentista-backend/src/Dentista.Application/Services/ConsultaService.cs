@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Dentista.Core.DTOs;
 using Dentista.Core.Interfaces.Repositories;
@@ -16,11 +17,11 @@ namespace Dentista.Application.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<ConsultaDto> BuscarConsultas()
+        public async Task<IEnumerable<ConsultaDto>> BuscarConsultas()
         {
             var consultas = await _repository.BuscarConsultas();
 
-            var consultasRetorno = _mapper.Map<ConsultaDto>(consultas);
+            var consultasRetorno = _mapper.Map<IEnumerable<ConsultaDto>>(consultas);
 
             return consultasRetorno;
         }
