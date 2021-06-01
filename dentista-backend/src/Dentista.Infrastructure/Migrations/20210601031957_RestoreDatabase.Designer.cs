@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dentista.Infrastructure.Migrations
 {
     [DbContext(typeof(DentistaDbContext))]
-    [Migration("20210529042122_CorrecaoMigracao")]
-    partial class CorrecaoMigracao
+    [Migration("20210601031957_RestoreDatabase")]
+    partial class RestoreDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,9 @@ namespace Dentista.Infrastructure.Migrations
                     b.Property<int>("PacienteId")
                         .HasColumnType("integer")
                         .HasColumnName("id_paciente");
+
+                    b.Property<int?>("PacienteId1")
+                        .HasColumnType("integer");
 
                     b.Property<int>("PagamentoId")
                         .HasColumnType("integer")
@@ -131,6 +134,10 @@ namespace Dentista.Infrastructure.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean")
+                        .HasColumnName("ativo");
+
                     b.Property<int>("CEP")
                         .HasMaxLength(8)
                         .HasColumnType("integer")
@@ -189,9 +196,9 @@ namespace Dentista.Infrastructure.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("FormaPagamento")
-                        .HasMaxLength(2)
-                        .HasColumnType("integer")
+                    b.Property<string>("FormaPagamento")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("forma_pagamento");
 
                     b.Property<DateTime>("PagoEm")

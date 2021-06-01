@@ -1,6 +1,4 @@
-﻿
-using System;
-using Dentista.Core.Entities;
+﻿using Dentista.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -17,10 +15,7 @@ namespace Dentista.Infrastructure.Maps
 
         public virtual void Configure(EntityTypeBuilder<TDomain> builder)
         {
-            if (!string.IsNullOrEmpty(_tableName))
-            {
-                builder.ToTable(_tableName);
-            }
+            if (!string.IsNullOrEmpty(_tableName)) builder.ToTable(_tableName);
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("id").ValueGeneratedOnAdd();

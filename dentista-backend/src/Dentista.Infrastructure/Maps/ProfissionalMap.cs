@@ -7,7 +7,8 @@ namespace Dentista.Infrastructure.Maps
     public class ProfissionalMap : BaseMap<Profissional>
     {
         public ProfissionalMap() : base("tb_profissional")
-        {}
+        {
+        }
 
         public override void Configure(EntityTypeBuilder<Profissional> builder)
         {
@@ -32,7 +33,6 @@ namespace Dentista.Infrastructure.Maps
                         x.Property(p => p.CriadoEm).HasColumnName("criado_em").IsRequired();
                     }
                 );
-
         }
     }
 }

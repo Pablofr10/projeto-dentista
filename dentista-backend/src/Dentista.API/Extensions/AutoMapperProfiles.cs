@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Dentista.Core.DTOs;
 using Dentista.Core.Entities;
-using Dentista.Core.Enums;
 
 namespace Dentista.API.Extensions
 {
@@ -19,6 +18,5 @@ namespace Dentista.API.Extensions
 
             CreateMap<ConsultaDto, Consulta>();
         }
-        
     }
 }

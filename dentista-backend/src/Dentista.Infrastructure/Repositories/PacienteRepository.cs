@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dentista.Infrastructure.Repositories
 {
-    public class PacienteRepository : BaseRepository , IPacienteRepository
+    public class PacienteRepository : BaseRepository, IPacienteRepository
     {
         private readonly DentistaDbContext _context;
 
@@ -28,17 +28,11 @@ namespace Dentista.Infrastructure.Repositories
                 var cidade = pacienteParam.Cidade.ToLower().Trim();
                 pacientes = pacientes.Where(p => p.Cidade.ToLower().Contains(cidade));
             }
-            
-            if (pacienteParam.Situacao == "ativo")
-            {
-                pacientes = pacientes.Where(p => p.Ativo);
-            }
-            
-            if (pacienteParam.Situacao == "inativo")
-            {
-                pacientes = pacientes.Where(p => !p.Ativo);
-            }
-            
+
+            if (pacienteParam.Situacao == "ativo") pacientes = pacientes.Where(p => p.Ativo);
+
+            if (pacienteParam.Situacao == "inativo") pacientes = pacientes.Where(p => !p.Ativo);
+
             return await pacientes.ToListAsync();
         }
 
@@ -51,6 +45,5 @@ namespace Dentista.Infrastructure.Repositories
 
             return paciente;
         }
-        
     }
 }

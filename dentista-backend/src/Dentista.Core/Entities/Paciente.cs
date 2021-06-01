@@ -15,6 +15,5 @@ namespace Dentista.Core.Entities
         public string Celular { get; set; }
         public List<Consulta> Consultas { get; set; }
         public bool Ativo { get; set; } = true;
-
     }
 }

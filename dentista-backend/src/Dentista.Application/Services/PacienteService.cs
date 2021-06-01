@@ -12,8 +12,8 @@ namespace Dentista.Application.Services
 {
     public class PacienteService : IPacienteService
     {
-        private readonly IPacienteRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IPacienteRepository _repository;
 
         public PacienteService(IPacienteRepository repository, IMapper mapper)
         {
@@ -44,62 +44,41 @@ namespace Dentista.Application.Services
             var pacienteAdicionar = _mapper.Map<Paciente>(paciente);
             _repository.Add(pacienteAdicionar);
 
-            if (await _repository.SaveChangesAsync())
-            {
-                return true;
-            }
+            if (await _repository.SaveChangesAsync()) return true;
 
             return false;
         }
 
         public async Task<bool> AtualizarPaciente(int idPaciente, PacienteDto paciente)
         {
-            if (idPaciente < 1)
-            {
-                throw new ArgumentException("Informe o paciente para ser atualizado");
-            }
+            if (idPaciente < 1) throw new ArgumentException("Informe o paciente para ser atualizado");
 
             var pacienteBanco = await _repository.Get(idPaciente);
 
-            if (pacienteBanco == null)
-            {
-                throw new ArgumentException("Paciente não encontrado");
-            }
+            if (pacienteBanco == null) throw new ArgumentException("Paciente não encontrado");
 
             _mapper.Map(paciente, pacienteBanco);
 
             _repository.Update(pacienteBanco);
 
-            if (await _repository.SaveChangesAsync())
-            {
-                return true;
-            }
+            if (await _repository.SaveChangesAsync()) return true;
 
             return false;
         }
 
         public async Task<bool> MudarStatusPaciente(int idPaciente, bool ativo)
         {
-            if (idPaciente < 1)
-            {
-                throw new ArgumentException("Paciente não encontrado");
-            }
+            if (idPaciente < 1) throw new ArgumentException("Paciente não encontrado");
 
             var paciente = await _repository.Get(idPaciente);
 
-            if (paciente == null)
-            {
-                throw new ArgumentException("Paciente não encontrado");
-            }
+            if (paciente == null) throw new ArgumentException("Paciente não encontrado");
 
             paciente.Ativo = ativo;
 
             _repository.Update(paciente);
 
-            if (await _repository.SaveChangesAsync())
-            {
-                return true;
-            }
+            if (await _repository.SaveChangesAsync()) return true;
 
             return false;
         }

@@ -15,6 +15,5 @@ namespace Dentista.Core.Entities
         public Profissional Profissional { get; set; }
         public int PacienteId { get; set; }
         public Paciente Paciente { get; set; }
-        
     }
 }

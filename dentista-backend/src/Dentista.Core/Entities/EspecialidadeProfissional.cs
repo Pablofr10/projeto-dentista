@@ -10,6 +10,5 @@ namespace Dentista.Core.Entities
         public virtual Especialidade Especialidade { get; set; }
         public bool Status { get; set; }
         public DateTime CriadoEm { get; set; }
-
     }
 }

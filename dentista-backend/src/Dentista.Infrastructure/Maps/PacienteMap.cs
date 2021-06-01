@@ -7,7 +7,8 @@ namespace Dentista.Infrastructure.Maps
     public class PacienteMap : BaseMap<Paciente>
     {
         public PacienteMap() : base("tb_paciente")
-        {}
+        {
+        }
 
         public override void Configure(EntityTypeBuilder<Paciente> builder)
         {
