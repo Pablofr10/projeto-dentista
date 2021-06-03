@@ -28,10 +28,10 @@ namespace Dentista.Infrastructure.Repositories
             return await consultas.ToListAsync();
         }
 
-        public async Task<Consulta> BuscarConsulta(int idPaciente)
+        public async Task<Consulta> BuscarConsulta(int idConsulta)
         {
             var consultas = _context.Consultas
-                .Where(x => x.Paciente.Id == idPaciente)
+                .Where(x => x.Id == idConsulta)
                 .Include(x => x.Profissional)
                 .Include(x => x.Paciente)
                 .Include(x => x.Pagamento)
