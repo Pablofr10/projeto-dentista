@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,24 @@ namespace Dentista.API.Controllers
             if (consulta != null) return Ok(consulta);
 
             return BadRequest("Erro ao obter consulta");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(ConsultaRequest consulta)
+        {
+            var consultaAdicionada = await _service.MarcarConsulta(consulta);
+
+            return consultaAdicionada ? Ok("Consulta marcada") : BadRequest("Erro ao marcar a consulta");
+        }
+
+        [HttpPut("{idConsulta}")]
+        public async Task<IActionResult> Put(int idConsulta, ConsultaRequest consulta)
+        {
+            var consultaAdicionada = await _service.AtualizarConsulta(idConsulta, consulta);
+
+            var consultaRetorno = await _service.BuscarConsulta(idConsulta);
+            
+            return consultaAdicionada ? Ok(consultaRetorno) : BadRequest("Erro ao atualizar consulta");
         }
     }
 }

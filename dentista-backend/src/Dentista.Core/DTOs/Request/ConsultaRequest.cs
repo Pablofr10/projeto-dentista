@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dentista.Core.Entities;
+using Dentista.Core.Enums;
 
-namespace Dentista.Application.Request
+namespace Dentista.Core.DTOs.Request
 {
-    public class ConsultaRequest
+    public class ConsultaRequest : BaseDto
     {
         public DateTime DataConsulta { get; set; }
-        public int Status { get; set; }
+        public StatusConsulta Status { get; set; }
+        public PagamentoDto Pagamento { get; set; }
         public int PagamentoId { get; set; }
         public List<int> Especialidades { get; set; }
         public int ProfissionalId { get; set; }

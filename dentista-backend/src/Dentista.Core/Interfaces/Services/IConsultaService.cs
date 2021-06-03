@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿
+
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dentista.Core.DTOs;
+using Dentista.Core.DTOs.Request;
 
 namespace Dentista.Core.Interfaces.Services
 {
@@ -8,7 +11,7 @@ namespace Dentista.Core.Interfaces.Services
     {
         Task<IEnumerable<ConsultaDto>> BuscarConsultas();
         Task<ConsultaDto> BuscarConsulta(int idPaciente);
-        Task<bool> MarcarConsulta();
-        Task<bool> AtualizarConsulta();
+        Task<bool> MarcarConsulta(ConsultaRequest consulta);
+        Task<bool> AtualizarConsulta(int idConsulta, ConsultaRequest consulta);
     }
 }
