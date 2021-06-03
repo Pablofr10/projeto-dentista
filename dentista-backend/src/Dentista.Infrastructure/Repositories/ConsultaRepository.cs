@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dentista.Core.Entities;
 using Dentista.Core.Interfaces.Repositories;
+using Dentista.Core.Params;
 using Dentista.Infrastructure.Commom;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,14 +19,19 @@ namespace Dentista.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Consulta>> BuscarConsultas()
+        public async Task<IEnumerable<Consulta>> BuscarConsultas(ConsultaParams consultaParams)
         {
             var consultas = _context.Consultas
                 .Include(x => x.Profissional)
                 .Include(x => x.Paciente)
                 .Include(x => x.Pagamento)
-                .Include(x => x.Especialidades);
+                .Include(x => x.Especialidades).AsQueryable();
 
+            if (consultaParams.Data != DateTime.MinValue)
+            {
+                consultas = consultas.Where(x => x.DataConsulta.Date == consultaParams.Data.Date);
+            }
+            
             return await consultas.ToListAsync();
         }
 

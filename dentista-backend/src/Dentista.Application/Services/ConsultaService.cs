@@ -9,6 +9,7 @@ using Dentista.Core.Entities;
 using Dentista.Core.Enums;
 using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
+using Dentista.Core.Params;
 
 namespace Dentista.Application.Services
 {
@@ -23,9 +24,9 @@ namespace Dentista.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ConsultaDto>> BuscarConsultas()
+        public async Task<IEnumerable<ConsultaDto>> BuscarConsultas(ConsultaParams consultaParams)
         {
-            var consultas = await _repository.BuscarConsultas();
+            var consultas = await _repository.BuscarConsultas(consultaParams);
 
             var consultasRetorno = _mapper.Map<IEnumerable<ConsultaDto>>(consultas);
 
