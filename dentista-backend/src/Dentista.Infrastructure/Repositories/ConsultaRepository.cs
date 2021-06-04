@@ -27,11 +27,17 @@ namespace Dentista.Infrastructure.Repositories
                 .Include(x => x.Pagamento)
                 .Include(x => x.Especialidades).AsQueryable();
 
+            var teste = consultas.ToList();
+
             if (consultaParams.Data != DateTime.MinValue)
-            {
                 consultas = consultas.Where(x => x.DataConsulta.Date == consultaParams.Data.Date);
-            }
-            
+
+            if (consultaParams.DataInicial != DateTime.MinValue)
+                consultas = consultas.Where(x => x.DataConsulta.Date >= consultaParams.DataInicial.Date);
+
+            if (consultaParams.DataFinal != DateTime.MinValue)
+                consultas = consultas.Where(x => x.DataConsulta.Date <= consultaParams.DataFinal.Date);
+
             return await consultas.ToListAsync();
         }
 
