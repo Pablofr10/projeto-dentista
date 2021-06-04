@@ -38,6 +38,15 @@ namespace Dentista.Infrastructure.Repositories
             if (consultaParams.DataFinal != DateTime.MinValue)
                 consultas = consultas.Where(x => x.DataConsulta.Date <= consultaParams.DataFinal.Date);
 
+            if (consultaParams.DataFinal != DateTime.MinValue)
+                consultas = consultas.Where(x => x.DataConsulta.Date <= consultaParams.DataFinal.Date);
+
+            if ((int) consultaParams.Status > 0)
+                consultas = consultas.Where(x => x.Status == (int) consultaParams.Status);
+
+            if (consultaParams.ProfissionalId > 0)
+                consultas = consultas.Where(x => x.ProfissionalId == consultaParams.ProfissionalId);
+
             return await consultas.ToListAsync();
         }
 
