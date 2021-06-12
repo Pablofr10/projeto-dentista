@@ -9,5 +9,6 @@ namespace Dentista.Core.Interfaces.Repositories
     {
         Task<IEnumerable<Consulta>> BuscarConsultas(ConsultaParams consultaParams);
         Task<Consulta> BuscarConsulta(int idConsulta);
+        Task<IEnumerable<ConsultaEspecialidade>> BuscarEspecialidade(int idConsulta);
     }
 }

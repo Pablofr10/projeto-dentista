@@ -82,6 +82,24 @@ namespace Dentista.Application.Services
 
             if (consulta.ProfissionalId > 0) consultaBanco.ProfissionalId = consulta.ProfissionalId;
 
+            if (consulta.Especialidades != null)
+            {
+                var especialidades = await _repository.BuscarEspecialidade(consulta.Id);
+
+                foreach (var especialidade in consulta.Especialidades)
+                    if (!especialidades.Any(x => x.EspecialidadeId == especialidade))
+                    {
+                        var itemsAdicionar = new ConsultaEspecialidade
+                            {ConsultaId = consulta.Id, EspecialidadeId = especialidade};
+                        _repository.Add(itemsAdicionar);
+                    }
+
+                var listaExcluir = especialidades.Where(x => !consulta.Especialidades.Contains(x.EspecialidadeId))
+                    .ToArray();
+
+                if (listaExcluir.Count() > 0) _repository.DeleteRange(listaExcluir);
+            }
+
             _repository.Update(consultaBanco);
 
             return await _repository.SaveChangesAsync();
