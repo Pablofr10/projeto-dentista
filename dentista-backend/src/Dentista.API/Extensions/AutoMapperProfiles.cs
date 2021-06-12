@@ -28,7 +28,9 @@ namespace Dentista.API.Extensions
                 .ForMember(dest => dest.Status, src => src.MapFrom(s => (int)s.Status))
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
-            CreateMap<Profissional, ProfissionalDto>().ReverseMap();
+            CreateMap<Profissional, ProfissionalDto>().ForMember(dest => dest.Especialidades,
+                opt => opt.MapFrom(src => src.Especialidades.Select(e => e.Nome)));
+            CreateMap<ProfissionalDto, Profissional>();
         }
     }
 }
