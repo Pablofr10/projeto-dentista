@@ -24,5 +24,15 @@ namespace Dentista.API.Controllers
 
             return BadRequest();
         }
+        
+        [HttpGet("{idProfissional}")]
+        public async Task<IActionResult> GetProfissional(int idProfissional)
+        {
+            var profissional = await _service.BuscarProfissional(idProfissional);
+
+            if (profissional != null) return Ok(profissional);
+
+            return BadRequest();
+        }
     }
 }

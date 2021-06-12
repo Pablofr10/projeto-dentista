@@ -26,9 +26,13 @@ namespace Dentista.Application.Services
             return profissionaisRetorno;
         }
 
-        public Task<ProfissionalDto> BuscarProfissional(int idProfissional)
+        public async Task<ProfissionalDto> BuscarProfissional(int idProfissional)
         {
-            throw new System.NotImplementedException();
+            var profissional = await _repository.Get(idProfissional);
+
+            var profissionalRetorno = _mapper.Map<ProfissionalDto>(profissional);
+
+            return profissionalRetorno;
         }
 
         public Task<bool> AdicionarProfissional(ProfissionalDto profissional)
