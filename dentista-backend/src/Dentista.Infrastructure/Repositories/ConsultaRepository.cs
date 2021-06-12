@@ -27,8 +27,6 @@ namespace Dentista.Infrastructure.Repositories
                 .Include(x => x.Pagamento)
                 .Include(x => x.Especialidades).AsQueryable();
 
-            var teste = consultas.ToList();
-
             if (consultaParams.Data != DateTime.MinValue)
                 consultas = consultas.Where(x => x.DataConsulta.Date == consultaParams.Data.Date);
 
@@ -60,6 +58,14 @@ namespace Dentista.Infrastructure.Repositories
                 .Include(x => x.Especialidades);
 
             return await consultas.FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<ConsultaEspecialidade>> BuscarEspecialidade(int idConsulta)
+        {
+            var especialidades = _context.ConsultaEspecialidades
+                .Where(x => x.ConsultaId == idConsulta);
+
+            return await especialidades.ToListAsync();
         }
     }
 }

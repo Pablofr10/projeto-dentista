@@ -50,9 +50,7 @@ namespace Dentista.API.Controllers
         {
             var consultaAdicionada = await _service.AtualizarConsulta(idConsulta, consulta);
 
-            var consultaRetorno = await _service.BuscarConsulta(idConsulta);
-
-            return consultaAdicionada ? Ok(consultaRetorno) : BadRequest("Erro ao atualizar consulta");
+            return consultaAdicionada ? Ok("Consulta atualizada.") : BadRequest("Erro ao atualizar consulta");
         }
     }
 }
