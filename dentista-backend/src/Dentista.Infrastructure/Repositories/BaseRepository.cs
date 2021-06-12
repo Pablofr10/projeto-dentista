@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Dentista.Core.Interfaces.Repositories;
 using Dentista.Infrastructure.Commom;
 
@@ -18,6 +17,7 @@ namespace Dentista.Infrastructure.Repositories
         {
             _context.Add(entity);
         }
+
         public void Update<T>(T entity) where T : class
         {
             _context.Update(entity);

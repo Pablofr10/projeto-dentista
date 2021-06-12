@@ -94,10 +94,10 @@ namespace Dentista.Application.Services
                         _repository.Add(itemsAdicionar);
                     }
 
-                var listaExcluir = especialidades.Where(x => !consulta.Especialidades.Contains(x.EspecialidadeId)).ToArray();
+                var listaExcluir = especialidades.Where(x => !consulta.Especialidades.Contains(x.EspecialidadeId))
+                    .ToArray();
 
                 if (listaExcluir.Count() > 0) _repository.DeleteRange(listaExcluir);
-                
             }
 
             _repository.Update(consultaBanco);
