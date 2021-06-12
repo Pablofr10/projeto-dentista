@@ -1,40 +1,36 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Dentista.Core.DTOs;
-using Dentista.Core.Interfaces.Services;
+using Dentista.Core.Entities;
+using Dentista.Core.Interfaces.Repositories;
 using Dentista.Infrastructure.Commom;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dentista.Infrastructure.Repositories
 {
-    public class ProfissionalRepository : BaseRepository, IProfissionalService
+    public class ProfissionalRepository : BaseRepository, IProfissionalRepository
     {
+        private readonly DentistaDbContext _context;
+
         public ProfissionalRepository(DentistaDbContext context) : base(context)
         {
+            _context = context;
         }
 
-        public Task<IEnumerable<ProfissionalDto>> BuscarProfissionais()
+        public async Task<IEnumerable<Profissional>> Get()
         {
-            throw new System.NotImplementedException();
+            var profissionais = _context.Profissionais
+                .Include(x => x.Especialidades).AsQueryable();
+
+            return await profissionais.ToListAsync();
         }
 
-        public Task<ProfissionalDto> BuscarProfissional(int idProfissional)
+        public async Task<Profissional> Get(int idProfissional)
         {
-            throw new System.NotImplementedException();
-        }
+            var profissional = await _context.Profissionais
+                .Include(x => x.Especialidades).FirstOrDefaultAsync();
 
-        public Task<bool> AdicionarProfissional(ProfissionalDto profissional)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<bool> AtualizarProfissional(int idProfissional, ProfissionalDto profissional)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<bool> AdicionarEspecialidade(EspecialidadeDto profissional)
-        {
-            throw new System.NotImplementedException();
+            return profissional;
         }
     }
 }
