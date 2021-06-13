@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Dentista.Core.Interfaces.Services;
+using Dentista.Core.Params;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentista.API.Controllers
@@ -14,17 +15,17 @@ namespace Dentista.API.Controllers
         {
             _service = service;
         }
-        
+
         [HttpGet]
-        public async Task<IActionResult> GetProfissionais()
+        public async Task<IActionResult> GetProfissionais([FromQuery] ProfissionalParams profissionalParams)
         {
-            var profissionais = await _service.BuscarProfissionais();
+            var profissionais = await _service.BuscarProfissionais(profissionalParams);
 
             if (profissionais != null) return Ok(profissionais);
 
             return BadRequest();
         }
-        
+
         [HttpGet("{idProfissional}")]
         public async Task<IActionResult> GetProfissional(int idProfissional)
         {
