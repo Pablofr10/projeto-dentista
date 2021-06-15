@@ -74,7 +74,7 @@ namespace Dentista.Application.Services
             foreach (var especialidade in profissional.Especialidades)
             {
                 var especialidadeAdicionar = new EspecialidadeProfissional
-                    {EspecialidadeId = especialidade, ProfissionalId = idProfissional };
+                    {EspecialidadeId = especialidade, ProfissionalId = idProfissional};
 
                 especialidadesAdicionar.Add(especialidadeAdicionar);
             }
@@ -96,7 +96,7 @@ namespace Dentista.Application.Services
                 if (!especialidadesBanco.Any(x => x.EspecialidadeId == especialidade))
                 {
                     var novaEspecialidade = new EspecialidadeProfissional
-                        {EspecialidadeId = especialidade, ProfissionalId = idProfissional };
+                        {EspecialidadeId = especialidade, ProfissionalId = idProfissional};
                     listaAdicionar.Add(novaEspecialidade);
                 }
 
