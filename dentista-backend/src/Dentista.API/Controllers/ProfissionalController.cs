@@ -3,11 +3,12 @@ using Dentista.Core.DTOs;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Core.Params;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentista.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     [ApiController]
     public class ProfissionalController : ControllerBase
     {
@@ -41,9 +42,9 @@ namespace Dentista.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PutProfissional(ProfissionalRequest profissional)
         {
-            var profissionalAdicionado = await _service.AdicionarProfissional(profissional);
+            var isAdicionado = await _service.AdicionarProfissional(profissional);
 
-            return profissionalAdicionado
+            return isAdicionado
                 ? Ok("Profissional adicionado")
                 : BadRequest("Erro ao atualizar profissional");
         }
@@ -51,11 +52,32 @@ namespace Dentista.API.Controllers
         [HttpPut("{idProfissional}")]
         public async Task<IActionResult> PutProfissional(int idProfissional, ProfissionalDto profissional)
         {
-            var profissionalAtualizado = await _service.AtualizarProfissional(idProfissional, profissional);
+            var isAtualizado = await _service.AtualizarProfissional(idProfissional, profissional);
 
-            return profissionalAtualizado
+            return isAtualizado
                 ? Ok("Profissional atualizado")
                 : BadRequest("Erro ao atualizar profissional");
         }
+        
+        [HttpPost("{idProfissional}/adicionar-especialidade")]
+        public async Task<IActionResult> PostEspecialidade(int idProfissional, EspecialidadeRequest profissional)
+        {
+            var isAdicionada = await _service.AdicionarEspecialidade(idProfissional, profissional);
+
+            return isAdicionada
+                ? Ok("Especialidade adicionada")
+                : BadRequest("Erro ao adicionar especialidade");
+        }
+        
+        [HttpPut("{idProfissional}/atualizar-especialidade")]
+        public async Task<IActionResult> PutEspecialidade(int idProfissional, EspecialidadeRequest profissional)
+        {
+            var isAtualizada = await _service.AtualizarEspecialidade(idProfissional, profissional);
+
+            return isAtualizada
+                ? Ok("Especialidade atualizado")
+                : BadRequest("Erro ao atualizar especialidade");
+        }
+
     }
 }

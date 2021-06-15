@@ -28,11 +28,10 @@ namespace Dentista.Infrastructure.Repositories
                 var nome = profissionalParams.Nome.Trim().ToLower();
                 profissionais = profissionais.Where(x => x.Nome.ToLower().Contains(nome));
             }
-            
+
             if (profissionalParams.Especialidades != null)
-            {
-                profissionais = profissionais.Where(x => x.Especialidades.Any(x => profissionalParams.Especialidades.Contains(x.Id)));
-            }
+                profissionais = profissionais.Where(x =>
+                    x.Especialidades.Any(x => profissionalParams.Especialidades.Contains(x.Id)));
 
             return await profissionais.ToListAsync();
         }
@@ -44,6 +43,14 @@ namespace Dentista.Infrastructure.Repositories
                 .Where(x => x.Id == idProfissional).FirstOrDefaultAsync();
 
             return profissional;
+        }
+
+        public async Task<IEnumerable<EspecialidadeProfissional>> GetEspecialidades(int idProfissional)
+        {
+            var especiliadades = await _context.EspecialidadesProfissionaiss
+                .Where(x => x.ProfissionalId == idProfissional).ToListAsync();
+
+            return especiliadades;
         }
     }
 }

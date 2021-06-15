@@ -10,5 +10,6 @@ namespace Dentista.Core.Interfaces.Repositories
     {
         Task<IEnumerable<Profissional>> Get(ProfissionalParams profissionalParams);
         Task<Profissional> Get(int idProfissional);
+        Task<IEnumerable<EspecialidadeProfissional>> GetEspecialidades(int idProfissional);
     }
 }

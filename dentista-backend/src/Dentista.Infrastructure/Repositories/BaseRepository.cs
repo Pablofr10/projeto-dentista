@@ -37,5 +37,9 @@ namespace Dentista.Infrastructure.Repositories
         {
             _context.RemoveRange(entityArray);
         }
+        public void AddRange<T>(T[] entityArray) where T : class
+        {
+            _context.AddRange(entityArray);
+        }
     }
 }
