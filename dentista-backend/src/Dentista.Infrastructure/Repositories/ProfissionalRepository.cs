@@ -34,15 +34,14 @@ namespace Dentista.Infrastructure.Repositories
                 profissionais = profissionais.Where(x => x.Especialidades.Any(x => profissionalParams.Especialidades.Contains(x.Id)));
             }
 
-            var teste = await profissionais.ToListAsync();
-
             return await profissionais.ToListAsync();
         }
 
         public async Task<Profissional> Get(int idProfissional)
         {
             var profissional = await _context.Profissionais
-                .Include(x => x.Especialidades).FirstOrDefaultAsync();
+                .Include(x => x.Especialidades)
+                .Where(x => x.Id == idProfissional).FirstOrDefaultAsync();
 
             return profissional;
         }

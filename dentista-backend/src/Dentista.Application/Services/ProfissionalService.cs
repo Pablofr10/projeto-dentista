@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dentista.Core.DTOs;
+using Dentista.Core.DTOs.Request;
+using Dentista.Core.Entities;
 using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Core.Params;
@@ -38,14 +40,34 @@ namespace Dentista.Application.Services
             return profissionalRetorno;
         }
 
-        public Task<bool> AdicionarProfissional(ProfissionalDto profissional)
+        public async Task<bool> AdicionarProfissional(ProfissionalRequest profissional)
         {
-            throw new NotImplementedException();
+            if (profissional == null)
+            {
+                throw new ArgumentException("Profissional vazio");
+            }
+
+            var profissionalAdicionar = new Profissional{ Nome = profissional.Nome };
+            
+            _repository.Add(profissionalAdicionar);
+
+            return await _repository.SaveChangesAsync();
         }
 
-        public Task<bool> AtualizarProfissional(int idProfissional, ProfissionalDto profissional)
+        public async Task<bool> AtualizarProfissional(int idProfissional, ProfissionalDto profissional)
         {
-            throw new NotImplementedException();
+            if (profissional == null)
+            {
+                throw new ArgumentException("Profissional não informado");
+            }
+
+            var profissionalBanco = await _repository.Get(idProfissional);
+
+            _mapper.Map(profissional, profissionalBanco);
+            
+            _repository.Update(profissionalBanco);
+
+            return await _repository.SaveChangesAsync();
         }
 
         public Task<bool> AdicionarEspecialidade(EspecialidadeDto profissional)
