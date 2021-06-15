@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Dentista.Core.DTOs;
+using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Core.Params;
 using Microsoft.AspNetCore.Mvc;
@@ -38,12 +39,12 @@ namespace Dentista.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PutProfissional(ProfissionalDto profissional)
+        public async Task<IActionResult> PutProfissional(ProfissionalRequest profissional)
         {
             var profissionalAdicionado = await _service.AdicionarProfissional(profissional);
 
             return profissionalAdicionado
-                ? Ok("Profissional atualizado")
+                ? Ok("Profissional adicionado")
                 : BadRequest("Erro ao atualizar profissional");
         }
 
