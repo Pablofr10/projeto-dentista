@@ -54,9 +54,20 @@ namespace Dentista.Application.Services
             return await _repository.SaveChangesAsync();
         }
 
-        public Task<bool> AtualizarProfissional(int idProfissional, ProfissionalDto profissional)
+        public async Task<bool> AtualizarProfissional(int idProfissional, ProfissionalDto profissional)
         {
-            throw new NotImplementedException();
+            if (profissional == null)
+            {
+                throw new ArgumentException("Profissional não informado");
+            }
+
+            var profissionalBanco = await _repository.Get(idProfissional);
+
+            _mapper.Map(profissional, profissionalBanco);
+            
+            _repository.Update(profissionalBanco);
+
+            return await _repository.SaveChangesAsync();
         }
 
         public Task<bool> AdicionarEspecialidade(EspecialidadeDto profissional)

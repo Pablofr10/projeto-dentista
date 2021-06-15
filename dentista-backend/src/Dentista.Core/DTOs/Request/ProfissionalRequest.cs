@@ -2,7 +2,7 @@
 
 namespace Dentista.Core.DTOs.Request
 {
-    public class ProfissionalRequest
+    public class ProfissionalRequest : BaseDto
     {
         public string Nome { get; set; }
     }
