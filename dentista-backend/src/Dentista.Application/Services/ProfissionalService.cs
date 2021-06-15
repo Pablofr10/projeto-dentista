@@ -42,13 +42,10 @@ namespace Dentista.Application.Services
 
         public async Task<bool> AdicionarProfissional(ProfissionalRequest profissional)
         {
-            if (profissional == null)
-            {
-                throw new ArgumentException("Profissional vazio");
-            }
+            if (profissional == null) throw new ArgumentException("Profissional vazio");
 
-            var profissionalAdicionar = new Profissional{ Nome = profissional.Nome };
-            
+            var profissionalAdicionar = new Profissional {Nome = profissional.Nome};
+
             _repository.Add(profissionalAdicionar);
 
             return await _repository.SaveChangesAsync();
@@ -56,23 +53,34 @@ namespace Dentista.Application.Services
 
         public async Task<bool> AtualizarProfissional(int idProfissional, ProfissionalDto profissional)
         {
-            if (profissional == null)
-            {
-                throw new ArgumentException("Profissional não informado");
-            }
+            if (profissional == null) throw new ArgumentException("Profissional não informado");
 
             var profissionalBanco = await _repository.Get(idProfissional);
 
             _mapper.Map(profissional, profissionalBanco);
-            
+
             _repository.Update(profissionalBanco);
 
             return await _repository.SaveChangesAsync();
         }
 
-        public Task<bool> AdicionarEspecialidade(EspecialidadeDto profissional)
+        public async Task<bool> AdicionarEspecialidade(int idProfissional, EspecialidadeRequest profissional)
         {
-            throw new NotImplementedException();
+            if (profissional == null) throw new ArgumentException("Nenhuma especialidade informada");
+
+            var especialidadesAdicionar = new List<EspecialidadeProfissional>();
+
+            foreach (var especialidade in profissional.Especialidades)
+            {
+                var especialidadeAdicionar = new EspecialidadeProfissional
+                    {EspecialidadeId = especialidade, ProfissionalId = idProfissional, Status = true};
+
+                especialidadesAdicionar.Add(especialidadeAdicionar);
+            }
+
+            _repository.AddRange(especialidadesAdicionar.ToArray());
+
+            return await _repository.SaveChangesAsync();
         }
     }
 }

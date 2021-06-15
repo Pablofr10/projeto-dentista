@@ -68,5 +68,6 @@ namespace Dentista.API.Controllers
                 ? Ok("Profissional atualizado")
                 : BadRequest("Erro ao atualizar profissional");
         }
+        
     }
 }
