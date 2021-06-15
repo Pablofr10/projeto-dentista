@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dentista.Core.DTOs;
@@ -73,12 +74,37 @@ namespace Dentista.Application.Services
             foreach (var especialidade in profissional.Especialidades)
             {
                 var especialidadeAdicionar = new EspecialidadeProfissional
-                    {EspecialidadeId = especialidade, ProfissionalId = idProfissional, Status = true};
+                    {EspecialidadeId = especialidade, ProfissionalId = idProfissional };
 
                 especialidadesAdicionar.Add(especialidadeAdicionar);
             }
 
             _repository.AddRange(especialidadesAdicionar.ToArray());
+
+            return await _repository.SaveChangesAsync();
+        }
+
+        public async Task<bool> AtualizarEspecialidade(int idProfissional, EspecialidadeRequest profissional)
+        {
+            if (profissional == null) throw new ArgumentException("Nenhuma especialidade informada");
+
+            var especialidadesBanco = await _repository.GetEspecialidades(idProfissional);
+
+            var listaAdicionar = new List<EspecialidadeProfissional>();
+
+            foreach (var especialidade in profissional.Especialidades)
+                if (!especialidadesBanco.Any(x => x.EspecialidadeId == especialidade))
+                {
+                    var novaEspecialidade = new EspecialidadeProfissional
+                        {EspecialidadeId = especialidade, ProfissionalId = idProfissional };
+                    listaAdicionar.Add(novaEspecialidade);
+                }
+
+            var listaExcluir = especialidadesBanco.Where(x => !profissional.Especialidades.Contains(x.EspecialidadeId));
+
+            if (listaAdicionar.Count() > 0) _repository.AddRange(listaAdicionar.ToArray());
+            if (listaExcluir.Count() > 0) _repository.DeleteRange(listaExcluir.ToArray());
+
 
             return await _repository.SaveChangesAsync();
         }

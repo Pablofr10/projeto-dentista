@@ -59,15 +59,25 @@ namespace Dentista.API.Controllers
                 : BadRequest("Erro ao atualizar profissional");
         }
         
-        [HttpPost("{idProfissional}/especialidade")]
-        public async Task<IActionResult> PutEspecialidade(int idProfissional, EspecialidadeRequest profissional)
+        [HttpPost("{idProfissional}/adicionar-especialidade")]
+        public async Task<IActionResult> PostEspecialidade(int idProfissional, EspecialidadeRequest profissional)
         {
             var isAdicionada = await _service.AdicionarEspecialidade(idProfissional, profissional);
 
             return isAdicionada
-                ? Ok("Profissional atualizado")
-                : BadRequest("Erro ao atualizar profissional");
+                ? Ok("Especialidade adicionada")
+                : BadRequest("Erro ao adicionar especialidade");
         }
         
+        [HttpPut("{idProfissional}/atualizar-especialidade")]
+        public async Task<IActionResult> PutEspecialidade(int idProfissional, EspecialidadeRequest profissional)
+        {
+            var isAtualizada = await _service.AdicionarEspecialidade(idProfissional, profissional);
+
+            return isAtualizada
+                ? Ok("Especialidade atualizado")
+                : BadRequest("Erro ao atualizar especialidade");
+        }
+
     }
 }

@@ -29,7 +29,6 @@ namespace Dentista.Infrastructure.Maps
 
                         x.Property(p => p.EspecialidadeId).HasColumnName("id_especialidade").IsRequired();
                         x.Property(p => p.ProfissionalId).HasColumnName("id_profissional").IsRequired();
-                        x.Property(p => p.Status).HasColumnName("status").IsRequired();
                         x.Property(p => p.CriadoEm).HasColumnName("criado_em").IsRequired();
                     }
                 );
