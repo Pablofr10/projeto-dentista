@@ -3,12 +3,11 @@ using Dentista.Core.DTOs;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Core.Params;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentista.API.Controllers
 {
-    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProfissionalController : ControllerBase
     {
@@ -60,7 +59,7 @@ namespace Dentista.API.Controllers
         }
         
         [HttpPost("{idProfissional}/adicionar-especialidade")]
-        public async Task<IActionResult> PostEspecialidade(int idProfissional, EspecialidadeRequest profissional)
+        public async Task<IActionResult> PostEspecialidade(int idProfissional, ProfissionalEspecialidadeRequest profissional)
         {
             var isAdicionada = await _service.AdicionarEspecialidade(idProfissional, profissional);
 
@@ -70,14 +69,13 @@ namespace Dentista.API.Controllers
         }
         
         [HttpPut("{idProfissional}/atualizar-especialidade")]
-        public async Task<IActionResult> PutEspecialidade(int idProfissional, EspecialidadeRequest profissional)
+        public async Task<IActionResult> PutEspecialidade(int idProfissional, ProfissionalEspecialidadeRequest profissional)
         {
-            var isAtualizada = await _service.AtualizarEspecialidade(idProfissional, profissional);
+            var isAtualizada = await _service.AtualizarEspecialidadeProfissional(idProfissional, profissional);
 
             return isAtualizada
                 ? Ok("Especialidade atualizado")
                 : BadRequest("Erro ao atualizar especialidade");
         }
-
     }
 }

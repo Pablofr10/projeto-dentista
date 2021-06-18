@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Dentista.Core.DTOs.Request
+﻿namespace Dentista.Core.DTOs.Request
 {
-    public class EspecialidadeRequest
+    public class EspecialidadeRequest : BaseDto
     {
-        public int ProfissionalId { get; set; }
-        public List<int> Especialidades { get; set; }
-        public bool Status { get; set; }
+        public string Nome { get; set; }
+        public bool Ativa { get; set; } = true;
     }
 }

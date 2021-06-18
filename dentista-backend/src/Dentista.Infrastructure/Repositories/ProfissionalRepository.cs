@@ -47,7 +47,7 @@ namespace Dentista.Infrastructure.Repositories
 
         public async Task<IEnumerable<EspecialidadeProfissional>> GetEspecialidades(int idProfissional)
         {
-            var especiliadades = await _context.EspecialidadesProfissionaiss
+            var especiliadades = await _context.EspecialidadesProfissionais
                 .Where(x => x.ProfissionalId == idProfissional).ToListAsync();
 
             return especiliadades;

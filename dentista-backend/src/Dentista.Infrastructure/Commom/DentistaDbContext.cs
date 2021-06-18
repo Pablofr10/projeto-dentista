@@ -10,7 +10,7 @@ namespace Dentista.Infrastructure.Commom
         public DbSet<Especialidade> Especialidades { get; set; }
         public DbSet<Profissional> Profissionais { get; set; }
         public DbSet<ConsultaEspecialidade> ConsultaEspecialidades { get; set; }
-        public DbSet<EspecialidadeProfissional> EspecialidadesProfissionaiss { get; set; }
+        public DbSet<EspecialidadeProfissional> EspecialidadesProfissionais { get; set; }
         public DbSet<Consulta> Consultas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

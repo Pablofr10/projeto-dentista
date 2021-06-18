@@ -1,6 +1,6 @@
 ﻿namespace Dentista.Core.DTOs
 {
-    public class EspecialidadeDto : BaseDto
+    public class ProfissionalEspecialidadeDto : BaseDto
     {
         public int ProfissionalId { get; set; }
         public int EspecialidadeId { get; set; }
