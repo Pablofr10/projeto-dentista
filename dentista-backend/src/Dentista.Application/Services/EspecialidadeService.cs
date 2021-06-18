@@ -70,5 +70,25 @@ namespace Dentista.Application.Services
 
             return await _repository.SaveChangesAsync();
         }
+
+        public async Task<bool> AtualizarEspecialidade(int idEspecialidade, EspecialidadeRequest especialidadeRequest)
+        {
+            if (especialidadeRequest == null)
+                throw new AggregateException("Informe a especialidade para ser atualizada");
+
+            if (string.IsNullOrEmpty(especialidadeRequest.Nome))
+                throw new AggregateException("O nome é obrigatório para atualizada a especialidade");
+
+            var especialidadeBanco = await _repository.BuscarEspecialidade(idEspecialidade);
+
+            if (especialidadeBanco == null)
+                throw new AggregateException("Especialidade não encontrada.");
+
+            _mapper.Map(especialidadeRequest, especialidadeBanco);
+
+            _repository.Update(especialidadeBanco);
+
+            return await _repository.SaveChangesAsync();
+        }
     }
 }

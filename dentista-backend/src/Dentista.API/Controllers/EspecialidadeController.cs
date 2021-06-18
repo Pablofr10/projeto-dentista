@@ -46,6 +46,16 @@ namespace Dentista.API.Controllers
 
             return Ok("Especialidade adicionada");
         }
+        
+        [HttpPut("{idEspecialidade}")]
+        public async Task<IActionResult> Put(int idEspecialidade, EspecialidadeRequest especialidadeParams)
+        {
+            var isEspecialidade = await _service.AtualizarEspecialidade(idEspecialidade, especialidadeParams);
+
+            if (!isEspecialidade) return BadRequest("Erro ao adicionar a especialidade.");
+
+            return Ok("Especialidade atualizada.");
+        }
 
         [HttpGet("{idEspecialidade}/profissionais")]
         public async Task<IActionResult> GetEspecialidadeProfissionais(int idEspecialidade)
