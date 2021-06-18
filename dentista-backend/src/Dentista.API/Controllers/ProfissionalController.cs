@@ -3,12 +3,11 @@ using Dentista.Core.DTOs;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Core.Params;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentista.API.Controllers
 {
-    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProfissionalController : ControllerBase
     {
@@ -78,6 +77,5 @@ namespace Dentista.API.Controllers
                 ? Ok("Especialidade atualizado")
                 : BadRequest("Erro ao atualizar especialidade");
         }
-
     }
 }
