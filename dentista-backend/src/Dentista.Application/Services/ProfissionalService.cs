@@ -84,7 +84,7 @@ namespace Dentista.Application.Services
             return await _repository.SaveChangesAsync();
         }
 
-        public async Task<bool> AtualizarEspecialidade(int idProfissional, ProfissionalEspecialidadeRequest profissional)
+        public async Task<bool> AtualizarEspecialidadeProfissional(int idProfissional, ProfissionalEspecialidadeRequest profissional)
         {
             if (profissional == null) throw new ArgumentException("Nenhuma especialidade informada");
 

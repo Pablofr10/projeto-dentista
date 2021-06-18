@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.DTOs.Response;
+using Dentista.Core.Entities;
 using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Core.Params;
@@ -12,14 +14,15 @@ namespace Dentista.Application.Services
 {
     public class EspecialidadeService : IEspecialidadeService
     {
-        private readonly IEspecialidadeRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IEspecialidadeRepository _repository;
 
         public EspecialidadeService(IEspecialidadeRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
+
         public async Task<IEnumerable<EspecialidadeResponse>> Get(EspecialidadeParams especialidadeParams)
         {
             var especilidades = await _repository.BuscarEspecialidades(especialidadeParams);
@@ -53,9 +56,19 @@ namespace Dentista.Application.Services
             return especialidadeRetorno;
         }
 
-        public Task<bool> Post(EspecialidadeRequest especialidadeRequest)
+        public async Task<bool> AdicionarEspecialidade(EspecialidadeRequest especialidadeRequest)
         {
-            throw new System.NotImplementedException();
+            if (especialidadeRequest == null)
+                throw new AggregateException("Informe a especialidade para ser adicionada");
+
+            if (string.IsNullOrEmpty(especialidadeRequest.Nome))
+                throw new AggregateException("O nome é obrigatório para adicionar a especialidade");
+
+            var especialidadeAdicionar = _mapper.Map<Especialidade>(especialidadeRequest);
+
+            _repository.Add(especialidadeAdicionar);
+
+            return await _repository.SaveChangesAsync();
         }
     }
 }

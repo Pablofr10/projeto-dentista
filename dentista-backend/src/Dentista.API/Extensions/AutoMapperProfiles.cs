@@ -37,6 +37,7 @@ namespace Dentista.API.Extensions
                 .ForMember(x => x.Especialidades, opt => opt.Ignore());
             CreateMap<Especialidade, EspecialidadeResponse>().ReverseMap();
             CreateMap<Especialidade, EspecialidadeProfissionalResponse>();
+            CreateMap<EspecialidadeRequest, Especialidade>();
         }
     }
 }

@@ -11,6 +11,6 @@ namespace Dentista.Core.Interfaces.Services
         Task<IEnumerable<EspecialidadeResponse>> Get(EspecialidadeParams especialidadeParams);
         Task<EspecialidadeResponse> Get(int idEspecialidade);
         Task<EspecialidadeProfissionalResponse> BuscarEspecialidadeProfissionais(int idEspecialidade);
-        Task<bool> Post(EspecialidadeRequest especialidadeRequest);
+        Task<bool> AdicionarEspecialidade(EspecialidadeRequest especialidadeRequest);
     }
 }

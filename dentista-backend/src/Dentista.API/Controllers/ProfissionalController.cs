@@ -71,7 +71,7 @@ namespace Dentista.API.Controllers
         [HttpPut("{idProfissional}/atualizar-especialidade")]
         public async Task<IActionResult> PutEspecialidade(int idProfissional, ProfissionalEspecialidadeRequest profissional)
         {
-            var isAtualizada = await _service.AtualizarEspecialidade(idProfissional, profissional);
+            var isAtualizada = await _service.AtualizarEspecialidadeProfissional(idProfissional, profissional);
 
             return isAtualizada
                 ? Ok("Especialidade atualizado")

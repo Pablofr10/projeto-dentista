@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Core.Params;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace Dentista.API.Controllers
         {
             _service = service;
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] EspecialidadeParams especialidadeParams)
         {
@@ -25,7 +26,7 @@ namespace Dentista.API.Controllers
 
             return Ok(especialidades);
         }
-        
+
         [HttpGet("{idEspecialidade}")]
         public async Task<IActionResult> Get(int idEspecialidade)
         {
@@ -35,6 +36,17 @@ namespace Dentista.API.Controllers
 
             return Ok(especialidade);
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> Post(EspecialidadeRequest especialidadeParams)
+        {
+            var isEspecialidade = await _service.AdicionarEspecialidade(especialidadeParams);
+
+            if (!isEspecialidade) return BadRequest("Erro ao adicionar a especialidade.");
+
+            return Ok("Especialidade adicionada");
+        }
+
         [HttpGet("{idEspecialidade}/profissionais")]
         public async Task<IActionResult> GetEspecialidadeProfissionais(int idEspecialidade)
         {

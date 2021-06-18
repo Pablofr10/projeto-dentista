@@ -3,6 +3,6 @@
     public class EspecialidadeRequest : BaseDto
     {
         public string Nome { get; set; }
-        public bool Ativa { get; set; }
+        public bool Ativa { get; set; } = true;
     }
 }
