@@ -59,7 +59,7 @@ namespace Dentista.API.Controllers
         }
         
         [HttpPost("{idProfissional}/adicionar-especialidade")]
-        public async Task<IActionResult> PostEspecialidade(int idProfissional, EspecialidadeRequest profissional)
+        public async Task<IActionResult> PostEspecialidade(int idProfissional, ProfissionalEspecialidadeRequest profissional)
         {
             var isAdicionada = await _service.AdicionarEspecialidade(idProfissional, profissional);
 
@@ -69,7 +69,7 @@ namespace Dentista.API.Controllers
         }
         
         [HttpPut("{idProfissional}/atualizar-especialidade")]
-        public async Task<IActionResult> PutEspecialidade(int idProfissional, EspecialidadeRequest profissional)
+        public async Task<IActionResult> PutEspecialidade(int idProfissional, ProfissionalEspecialidadeRequest profissional)
         {
             var isAtualizada = await _service.AtualizarEspecialidade(idProfissional, profissional);
 

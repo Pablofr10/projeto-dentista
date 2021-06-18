@@ -12,7 +12,7 @@ namespace Dentista.Core.Interfaces.Services
         Task<ProfissionalDto> BuscarProfissional(int idProfissional);
         Task<bool> AdicionarProfissional(ProfissionalRequest profissional);
         Task<bool> AtualizarProfissional(int idProfissional, ProfissionalDto profissional);
-        Task<bool> AdicionarEspecialidade(int idProfissional, EspecialidadeRequest profissional);
-        Task<bool> AtualizarEspecialidade(int idProfissional, EspecialidadeRequest profissional);
+        Task<bool> AdicionarEspecialidade(int idProfissional, ProfissionalEspecialidadeRequest profissional);
+        Task<bool> AtualizarEspecialidade(int idProfissional, ProfissionalEspecialidadeRequest profissional);
     }
 }
