@@ -22,9 +22,9 @@ namespace Dentista.API.Controllers
         {
             var pacientes = await _service.BuscarPacientes(pacienteParams);
 
-            if (pacientes != null) return Ok(pacientes);
+            if (pacientes == null) return NotFound();
 
-            return BadRequest();
+            return Ok(pacientes);
         }
 
         [HttpGet("{idPaciente}")]
@@ -32,9 +32,9 @@ namespace Dentista.API.Controllers
         {
             var paciente = await _service.BuscarPacientePorId(idPaciente);
 
-            if (paciente != null) return Ok(paciente);
+            if (paciente == null) return NotFound();
 
-            return BadRequest();
+            return Ok(paciente);
         }
 
         [HttpPost]

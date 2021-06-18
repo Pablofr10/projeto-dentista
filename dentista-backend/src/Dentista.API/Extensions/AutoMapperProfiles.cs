@@ -2,6 +2,7 @@
 using AutoMapper;
 using Dentista.Core.DTOs;
 using Dentista.Core.DTOs.Request;
+using Dentista.Core.DTOs.Response;
 using Dentista.Core.Entities;
 
 namespace Dentista.API.Extensions
@@ -33,6 +34,7 @@ namespace Dentista.API.Extensions
             CreateMap<ProfissionalDto, Profissional>();
             CreateMap<ProfissionalRequest, Profissional>()
                 .ForMember(x => x.Especialidades, opt => opt.Ignore());
+            CreateMap<Especialidade, EspecialidadeResponse>().ReverseMap();
         }
     }
 }

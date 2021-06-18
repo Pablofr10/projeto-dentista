@@ -1,16 +1,34 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.DTOs.Response;
+using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
+using Dentista.Core.Params;
 
 namespace Dentista.Application.Services
 {
     public class EspecialidadeService : IEspecialidadeService
     {
-        public Task<IEnumerable<EspecialidadeResponse>> Get()
+        private readonly IEspecialidadeRepository _repository;
+        private readonly IMapper _mapper;
+
+        public EspecialidadeService(IEspecialidadeRepository repository, IMapper mapper)
         {
-            throw new System.NotImplementedException();
+            _repository = repository;
+            _mapper = mapper;
+        }
+        public async Task<IEnumerable<EspecialidadeResponse>> Get(EspecialidadeParams especialidadeParams)
+        {
+            var especilidades = await _repository.Get(especialidadeParams);
+
+            if (!especilidades.Any()) return null;
+
+            var especialidadeRetorno = _mapper.Map<IEnumerable<EspecialidadeResponse>>(especilidades);
+
+            return especialidadeRetorno;
         }
 
         public Task<EspecialidadeResponse> Get(int idEspecialidade)
