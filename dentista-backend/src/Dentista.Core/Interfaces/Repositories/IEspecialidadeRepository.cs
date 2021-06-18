@@ -7,7 +7,8 @@ namespace Dentista.Core.Interfaces.Repositories
 {
     public interface IEspecialidadeRepository : IBaseRepository
     {
-        Task<IEnumerable<Especialidade>> Get(EspecialidadeParams especialidadeParams);
-        Task<Paciente> Get(int idPaciente);
+        Task<IEnumerable<Especialidade>> BuscarEspecialidades(EspecialidadeParams especialidadeParams);
+        Task<Especialidade> BuscarEspecialidade(int idEspecialidade);
+        Task<Especialidade> BuscarEspecialidadeProfissionais(int idEspecialidade);
     }
 }

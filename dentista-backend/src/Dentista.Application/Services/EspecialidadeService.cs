@@ -22,18 +22,35 @@ namespace Dentista.Application.Services
         }
         public async Task<IEnumerable<EspecialidadeResponse>> Get(EspecialidadeParams especialidadeParams)
         {
-            var especilidades = await _repository.Get(especialidadeParams);
+            var especilidades = await _repository.BuscarEspecialidades(especialidadeParams);
 
             if (!especilidades.Any()) return null;
 
-            var especialidadeRetorno = _mapper.Map<IEnumerable<EspecialidadeResponse>>(especilidades);
+            var especialidadesRetorno = _mapper.Map<IEnumerable<EspecialidadeResponse>>(especilidades);
+
+            return especialidadesRetorno;
+        }
+
+        public async Task<EspecialidadeResponse> Get(int idEspecialidade)
+        {
+            var especilidade = await _repository.BuscarEspecialidadeProfissionais(idEspecialidade);
+
+            if (especilidade == null) return null;
+
+            var especialidadeRetorno = _mapper.Map<EspecialidadeResponse>(especilidade);
 
             return especialidadeRetorno;
         }
 
-        public Task<EspecialidadeResponse> Get(int idEspecialidade)
+        public async Task<EspecialidadeProfissionalResponse> BuscarEspecialidadeProfissionais(int idEspecialidade)
         {
-            throw new System.NotImplementedException();
+            var especilidade = await _repository.BuscarEspecialidadeProfissionais(idEspecialidade);
+
+            if (especilidade == null) return null;
+
+            var especialidadeRetorno = _mapper.Map<EspecialidadeProfissionalResponse>(especilidade);
+
+            return especialidadeRetorno;
         }
 
         public Task<bool> Post(EspecialidadeRequest especialidadeRequest)

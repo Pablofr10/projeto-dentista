@@ -17,13 +17,32 @@ namespace Dentista.API.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> GetProfissionais([FromQuery] EspecialidadeParams especialidadeParams)
+        public async Task<IActionResult> Get([FromQuery] EspecialidadeParams especialidadeParams)
         {
             var especialidades = await _service.Get(especialidadeParams);
 
             if (especialidades == null) return NotFound("Nenhuma especialidade encontrada");
 
             return Ok(especialidades);
+        }
+        
+        [HttpGet("{idEspecialidade}")]
+        public async Task<IActionResult> Get(int idEspecialidade)
+        {
+            var especialidade = await _service.Get(idEspecialidade);
+
+            if (especialidade == null) return NotFound("Especialidade não encontrada");
+
+            return Ok(especialidade);
+        }
+        [HttpGet("{idEspecialidade}/profissionais")]
+        public async Task<IActionResult> GetEspecialidadeProfissionais(int idEspecialidade)
+        {
+            var especialidade = await _service.BuscarEspecialidadeProfissionais(idEspecialidade);
+
+            if (especialidade == null) return NotFound("Especialidade não encontrada");
+
+            return Ok(especialidade);
         }
     }
 }

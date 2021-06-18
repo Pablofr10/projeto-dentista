@@ -19,7 +19,7 @@ namespace Dentista.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Especialidade>> Get(EspecialidadeParams especialidadeParams)
+        public async Task<IEnumerable<Especialidade>> BuscarEspecialidades(EspecialidadeParams especialidadeParams)
         {
             var especialidades = _context.Especialidades.AsQueryable();
 
@@ -36,12 +36,19 @@ namespace Dentista.Infrastructure.Repositories
             }
 
             return await especialidades.ToListAsync();
-
         }
 
-        public Task<Paciente> Get(int idPaciente)
+        public async Task<Especialidade> BuscarEspecialidade(int idEspecialidade)
         {
-            throw new System.NotImplementedException();
+            return await _context.Especialidades
+                .Where(x => x.Id == idEspecialidade).FirstOrDefaultAsync();
+        }
+
+        public async Task<Especialidade> BuscarEspecialidadeProfissionais(int idEspecialidade)
+        {
+            return await _context.Especialidades
+                .Where(x => x.Id == idEspecialidade)
+                .Include(x => x.Profissionais).FirstOrDefaultAsync(); 
         }
     }
 }
