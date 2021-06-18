@@ -4,7 +4,7 @@ namespace Dentista.Core.Params
 {
     public class EspecialidadeParams
     {
-        public StatusEspecialidade Ativa { get; } = StatusEspecialidade.Todos;
+        public StatusEspecialidade Ativa { get; set; } = StatusEspecialidade.Todos;
         public string Nome { get; set; }
     }
 }

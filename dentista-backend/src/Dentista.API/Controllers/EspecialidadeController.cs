@@ -21,7 +21,7 @@ namespace Dentista.API.Controllers
         {
             var especialidades = await _service.Get(especialidadeParams);
 
-            if (especialidades == null) return NotFound();
+            if (especialidades == null) return NotFound("Nenhuma especialidade encontrada");
 
             return Ok(especialidades);
         }
