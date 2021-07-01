@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Request" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +14,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
   </ItemGroup>
 
 </Project>
