@@ -2,6 +2,7 @@ using Dentista.API.Dependencies;
 using Dentista.Infrastructure.Commom;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,9 @@ namespace Dentista.API
                     assembly => assembly.MigrationsAssembly(typeof(DentistaDbContext).Assembly.FullName));
             });
 
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<DentistaDbContext>();
+
             DependencyInjection.Register(services);
             services.AddAutoMapper(typeof(Startup));
 
@@ -52,8 +56,9 @@ namespace Dentista.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dentista.API v1"));
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
-
+            
             app.UseRouting();
 
             app.UseAuthorization();
