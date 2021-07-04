@@ -1,5 +1,6 @@
 using Dentista.API.Dependencies;
 using Dentista.Infrastructure.Commom;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +22,7 @@ namespace Dentista.API
         }
 
         public IConfiguration Configuration { get; }
+        public string TokenJwt => Configuration.GetSection("AppSettings:Token").Value;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,7 +35,7 @@ namespace Dentista.API
             
             DependencyInjection.Register(services);
             
-            IdentityDependecy.Register(services);
+            IdentityDependecy.Register(services, TokenJwt);
 
             services.AddAutoMapper(typeof(Startup));
 

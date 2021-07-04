@@ -46,8 +46,9 @@ namespace Dentista.API.Services
             {
                 throw new AutenticacaoException("Para realizar o login é necessário informar Email e Senha");
             }
+            var user = await _userManager.FindByNameAsync(request.Email);
 
-            var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, false, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
             if (!result.Succeeded)
             {
