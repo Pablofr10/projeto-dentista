@@ -20,7 +20,7 @@ namespace Dentista.API.Dependencies
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
-                    options.Password.RequiredLength = 8;
+                    options.Password.RequiredLength = 10;
                 })
                 .AddEntityFrameworkStores<DentistaDbContext>();
         }
