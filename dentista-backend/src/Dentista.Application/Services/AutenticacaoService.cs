@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.Exceptions;
 using System.Collections.Generic;
+using Dentista.Application.Extensions;
 
-namespace Dentista.Application.Services
+namespace Dentista.API.Services
 {
     public class AutenticacaoService : IAutenticacaoService
     {
@@ -32,13 +33,7 @@ namespace Dentista.Application.Services
 
             if (!result.Succeeded)
             {
-                List<string> erros = new List<string>();
-                foreach (var erro in result.Errors)
-                {
-                    erros.Add(erro.Description);
-                }
-
-                string mensagemErro = string.Join(",", erros);
+                var mensagemErro = result.Errors.MensagemErro();
 
                 throw new AutenticacaoException($"Erro ao realizar a autenticação. {mensagemErro}");
             }

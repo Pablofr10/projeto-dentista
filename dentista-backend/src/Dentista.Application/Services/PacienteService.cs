@@ -8,7 +8,7 @@ using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Core.Params;
 
-namespace Dentista.Application.Services
+namespace Dentista.API.Services
 {
     public class PacienteService : IPacienteService
     {
