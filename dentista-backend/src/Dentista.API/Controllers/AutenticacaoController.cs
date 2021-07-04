@@ -30,10 +30,10 @@ namespace Dentista.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginRequest registro)
         {
-            var isRegistrado = await _service.Login(registro);
-            if (!isRegistrado) return BadRequest("Erro ao realizar login, verifique os dados");
+            var usuarioLogin = await _service.Login(registro);
+            if (usuarioLogin == null) return BadRequest("Erro ao realizar login");
 
-            return Ok("Usuário logado com sucesso");
+            return Ok(usuarioLogin);
         }
     }
 }
