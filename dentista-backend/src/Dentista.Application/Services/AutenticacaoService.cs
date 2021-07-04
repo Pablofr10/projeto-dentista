@@ -18,7 +18,7 @@ namespace Dentista.API.Services
         {
             _userManager = userManager;
             _signInManager = signInManager;
-        }
+        }        
 
         public async Task<bool> Registro(RegistroRequest request)
         {
@@ -33,12 +33,29 @@ namespace Dentista.API.Services
 
             if (!result.Succeeded)
             {
-                var mensagemErro = result.Errors.MensagemErro();
+                string mensagemErro = result.Errors.MensagemErro();
 
                 throw new AutenticacaoException($"Erro ao realizar a autenticação. {mensagemErro}");
             }
 
-            return result.Succeeded;
+            return true;
+        }
+        public async Task<bool> Login(LoginRequest request)
+        {
+            if (request == null)
+            {
+                throw new AutenticacaoException("Para realizar o login é necessário informar Email e Senha");
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, false, false);
+
+            if (!result.Succeeded)
+            {
+
+                throw new AutenticacaoException("Login inválido");
+            }
+
+            return true;
         }
     }
 }
