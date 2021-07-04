@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Entities\Contato.cs" />
     <Compile Remove="Entities\Dentista.cs" />
   </ItemGroup>
