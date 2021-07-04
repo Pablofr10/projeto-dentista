@@ -1,5 +1,4 @@
 ﻿using Dentista.Core.Interfaces.Services;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Dentista.Core.DTOs.Request;

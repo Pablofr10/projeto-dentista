@@ -30,11 +30,11 @@ namespace Dentista.API
                 options.UseNpgsql(Configuration.GetConnectionString("App"),
                     assembly => assembly.MigrationsAssembly(typeof(DentistaDbContext).Assembly.FullName));
             });
-
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<DentistaDbContext>();
-
+            
             DependencyInjection.Register(services);
+            
+            IdentityDependecy.Register(services);
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers().AddNewtonsoftJson(opt =>
