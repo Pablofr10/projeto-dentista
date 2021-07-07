@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dentista.Application.Response
+namespace Dentista.API.Response
 {
     public class PacienteResponse
     {

@@ -1,11 +1,13 @@
-﻿using System.Linq;
+﻿
+
 using AutoMapper;
 using Dentista.Core.DTOs;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.DTOs.Response;
 using Dentista.Core.Entities;
+using System.Linq;
 
-namespace Dentista.API.Extensions
+namespace Dentista.API.Helpers
 {
     public class AutoMapperProfiles : Profile
     {

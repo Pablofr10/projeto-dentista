@@ -1,9 +1,10 @@
 ﻿using Dentista.Core.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dentista.Infrastructure.Commom
 {
-    public sealed class DentistaDbContext : DbContext
+    public sealed class DentistaDbContext : IdentityDbContext
     {
         public DbSet<Paciente> Pacientes { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }

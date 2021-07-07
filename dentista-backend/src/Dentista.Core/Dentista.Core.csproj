@@ -5,14 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Interfaces\" />
+    <Compile Remove="Entities\Contato.cs" />
+    <Compile Remove="Entities\Dentista.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\Contato.cs" />
-    <Compile Remove="Entities\Dentista.cs" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
   </ItemGroup>
 
 </Project>

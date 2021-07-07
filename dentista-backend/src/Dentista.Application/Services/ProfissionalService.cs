@@ -12,6 +12,7 @@ using Dentista.Core.Params;
 
 namespace Dentista.Application.Services
 {
+
     public class ProfissionalService : IProfissionalService
     {
         private readonly IMapper _mapper;
