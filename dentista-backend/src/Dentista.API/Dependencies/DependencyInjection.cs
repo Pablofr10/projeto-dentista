@@ -1,4 +1,4 @@
-﻿using Dentista.API.Services;
+﻿using Dentista.Application.Services;
 using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Infrastructure.Repositories;

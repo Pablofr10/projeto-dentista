@@ -11,7 +11,7 @@ using Dentista.Core.Interfaces.Repositories;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Core.Params;
 
-namespace Dentista.API.Services
+namespace Dentista.Application.Services
 {
     public class ConsultaService : IConsultaService
     {

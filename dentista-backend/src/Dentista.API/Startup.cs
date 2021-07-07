@@ -1,9 +1,12 @@
+using System;
 using Dentista.API.Dependencies;
 using Dentista.Infrastructure.Commom;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,12 +42,41 @@ namespace Dentista.API
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddControllers().AddNewtonsoftJson(opt =>
-                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-            ;
-            services.AddSwaggerGen(c =>
+            services.AddControllers(opt =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Dentista.API", Version = "v1"});
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                opt.Filters.Add(new AuthorizeFilter(policy));
+            }).AddNewtonsoftJson(opt =>
+                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            
+            services.AddSwaggerGen(swagger =>
+            {
+                swagger.SwaggerDoc("v1", new OpenApiInfo {Title = "Dentista.API", Version = "v1"});
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Description = "Insira **_SOMENTE_** o token JWT no campo abaixo!",
+
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                swagger.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { jwtSecurityScheme, Array.Empty<string>() }
+                });
+
             });
         }
 

@@ -1,20 +1,20 @@
-﻿using Dentista.Core.Interfaces.Services;
-using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
-using Dentista.Core.DTOs.Request;
-using Dentista.Core.Exceptions;
+﻿using System;
 using System.Collections.Generic;
-using Dentista.Application.Extensions;
-using Dentista.Core.DTOs.Response;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
-using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
+using Dentista.Application.Extensions;
+using Dentista.Core.DTOs.Request;
+using Dentista.Core.DTOs.Response;
+using Dentista.Core.Exceptions;
+using Dentista.Core.Interfaces.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
-namespace Dentista.API.Services
+namespace Dentista.Application.Services
 {
     public class AutenticacaoService : IAutenticacaoService
     {
@@ -80,7 +80,7 @@ namespace Dentista.API.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Name, user.UserName)
             };
 
