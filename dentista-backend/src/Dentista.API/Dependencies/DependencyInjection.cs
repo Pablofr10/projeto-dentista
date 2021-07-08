@@ -24,6 +24,7 @@ namespace Dentista.API.Dependencies
             serviceProvider.AddScoped<IEspecialidadeService, EspecialidadeService>();
             serviceProvider.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
             serviceProvider.AddTransient<IAutenticacaoService, AutenticacaoService>();
+            serviceProvider.AddScoped<IAdministracaoService, AdministracaoService>();
         }
     }
 }
