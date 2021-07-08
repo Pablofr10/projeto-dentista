@@ -2,10 +2,12 @@
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
 using Dentista.Core.Params;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentista.API.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class EspecialidadeController : ControllerBase
