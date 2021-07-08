@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentista.API.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class AutenticacaoController : ControllerBase
@@ -16,8 +18,8 @@ namespace Dentista.API.Controllers
             _service = service;
         }
         
-        [Route("/cadastrar")]
-        [HttpPost]
+        [AllowAnonymous]
+        [HttpPost("cadastrar")]
         public async Task<IActionResult> Registro(RegistroRequest registro)
         {
             var isRegistrado = await _service.Registro(registro);
@@ -25,9 +27,9 @@ namespace Dentista.API.Controllers
 
             return Ok("Usuário registrado com sucesso");
         }
-
-        [Route("/login")]
-        [HttpPost]
+        
+        [AllowAnonymous]
+        [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest registro)
         {
             var usuarioLogin = await _service.Login(registro);
