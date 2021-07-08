@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -21,12 +22,13 @@ namespace Dentista.API.Controllers
         [HttpGet]
         public async Task<IActionResult> BuscarPermissoes()
         {
-            var permissaoCadastrada = await _service.AdicionaPermissao(request);
+            var permissoes = await _service.BuscarPermissoes();
 
-            return permissaoCadastrada
-                ? Ok("Permissão cadastrada com sucesso!")
-                : BadRequest("Erro ao cadastrar permissão");
+            return permissoes.Any()
+                ? Ok(permissoes)
+                : BadRequest("Erro ao buscar permissões");
         }
+
         [HttpPost]
         public async Task<IActionResult> CadastrarPermissao(PermissaoRequest request)
         {

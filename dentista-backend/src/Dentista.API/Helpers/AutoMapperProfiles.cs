@@ -6,6 +6,7 @@ using Dentista.Core.DTOs.Request;
 using Dentista.Core.DTOs.Response;
 using Dentista.Core.Entities;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dentista.API.Helpers
 {
@@ -40,6 +41,9 @@ namespace Dentista.API.Helpers
             CreateMap<Especialidade, EspecialidadeResponse>().ReverseMap();
             CreateMap<Especialidade, EspecialidadeProfissionalResponse>();
             CreateMap<EspecialidadeRequest, Especialidade>();
+            CreateMap<IdentityRole, PermissaoResponse>()
+                .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.NormalizedName))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }
