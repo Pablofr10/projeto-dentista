@@ -18,6 +18,15 @@ namespace Dentista.API.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> BuscarPermissoes()
+        {
+            var permissaoCadastrada = await _service.AdicionaPermissao(request);
+
+            return permissaoCadastrada
+                ? Ok("Permissão cadastrada com sucesso!")
+                : BadRequest("Erro ao cadastrar permissão");
+        }
         [HttpPost]
         public async Task<IActionResult> CadastrarPermissao(PermissaoRequest request)
         {
