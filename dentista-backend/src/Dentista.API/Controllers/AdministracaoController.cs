@@ -29,6 +29,16 @@ namespace Dentista.API.Controllers
                 : BadRequest("Erro ao buscar permissões");
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> BuscarPermissao(string id)
+        {
+            var permissoes = await _service.BuscarPermissao(id);
+
+            return permissoes != null
+                ? Ok(permissoes)
+                : BadRequest("Erro ao buscar permissão");
+        }
+
         [HttpPost]
         public async Task<IActionResult> CadastrarPermissao(PermissaoRequest request)
         {

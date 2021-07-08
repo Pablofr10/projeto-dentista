@@ -27,7 +27,24 @@ namespace Dentista.Application.Services
         {
             var permissoes = await _roleManager.Roles.ToListAsync();
 
-            return permissoes.Any() ? _mapper.Map<IEnumerable<PermissaoResponse>>(permissoes) : null;
+            if (!permissoes.Any())
+            {
+                throw new AdministracaoException("Permissões não encontrada");
+            }
+
+            return _mapper.Map<IEnumerable<PermissaoResponse>>(permissoes);
+        }
+
+        public async Task<PermissaoResponse> BuscarPermissao(string id)
+        {
+            var permissao = await _roleManager.Roles.Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (permissao == null)
+            {
+                throw new AdministracaoException("Permissão não encontrada");
+            }
+
+            return _mapper.Map<PermissaoResponse>(permissao);
         }
 
         public async Task<bool> AdicionaPermissao(PermissaoRequest request)

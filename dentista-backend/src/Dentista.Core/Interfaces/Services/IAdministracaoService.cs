@@ -8,6 +8,7 @@ namespace Dentista.Core.Interfaces.Services
     public interface IAdministracaoService
     {
         Task<IEnumerable<PermissaoResponse>> BuscarPermissoes();
+        Task<PermissaoResponse> BuscarPermissao(string id);
         Task<bool> AdicionaPermissao(PermissaoRequest request);
     }
 }
