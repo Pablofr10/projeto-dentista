@@ -19,8 +19,7 @@ namespace Dentista.API.Controllers
         }
         
         [AllowAnonymous]
-        [Route("/cadastrar")]
-        [HttpPost]
+        [HttpPost("cadastrar")]
         public async Task<IActionResult> Registro(RegistroRequest registro)
         {
             var isRegistrado = await _service.Registro(registro);
@@ -30,8 +29,7 @@ namespace Dentista.API.Controllers
         }
         
         [AllowAnonymous]
-        [Route("/login")]
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest registro)
         {
             var usuarioLogin = await _service.Login(registro);
