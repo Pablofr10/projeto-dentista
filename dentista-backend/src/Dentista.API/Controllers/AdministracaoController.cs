@@ -48,5 +48,15 @@ namespace Dentista.API.Controllers
                 ? Ok("Permissão cadastrada com sucesso!")
                 : BadRequest("Erro ao cadastrar permissão");
         }
+
+        [HttpPut]
+        public async Task<IActionResult> EditarPermissao(EditarPermissaoRequest request)
+        {
+            var permissaoEditada = await _service.EditarPermisao(request);
+
+            return permissaoEditada
+                ? Ok("Permissão editada com sucesso!")
+                : BadRequest("Erro ao editar permissão");
+        }
     }
 }

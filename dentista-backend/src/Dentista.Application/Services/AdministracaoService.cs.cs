@@ -65,5 +65,27 @@ namespace Dentista.Application.Services
 
             return true;
         }
+
+        public async Task<bool> EditarPermisao(EditarPermissaoRequest request)
+        {
+            var permissao = await _roleManager.FindByIdAsync(request.Id);
+
+            if (permissao == null)
+            {
+                throw new AdministracaoException("Permissão não encontrada");
+            }
+
+            permissao.Name = request.Nome;
+            var result = await _roleManager.UpdateAsync(permissao);
+
+            if (!result.Succeeded)
+            {
+                var mensagemErro = result.Errors.MensagemErro();
+
+                throw new AdministracaoException($"Erro ao editar permissão. {mensagemErro}");
+            }
+
+            return true;
+        }
     }
 }

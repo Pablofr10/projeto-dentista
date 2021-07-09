@@ -10,5 +10,6 @@ namespace Dentista.Core.Interfaces.Services
         Task<IEnumerable<PermissaoResponse>> BuscarPermissoes();
         Task<PermissaoResponse> BuscarPermissao(string id);
         Task<bool> AdicionaPermissao(PermissaoRequest request);
+        Task<bool> EditarPermisao(EditarPermissaoRequest request);
     }
 }
