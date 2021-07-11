@@ -27,10 +27,7 @@ namespace Dentista.Application.Services
         {
             var permissoes = await _roleManager.Roles.ToListAsync();
 
-            if (!permissoes.Any())
-            {
-                throw new AdministracaoException("Permissões não encontrada");
-            }
+            if (!permissoes.Any()) throw new AdministracaoException("Permissões não encontrada");
 
             return _mapper.Map<IEnumerable<PermissaoResponse>>(permissoes);
         }
@@ -39,10 +36,7 @@ namespace Dentista.Application.Services
         {
             var permissao = await _roleManager.Roles.Where(x => x.Id == id).FirstOrDefaultAsync();
 
-            if (permissao == null)
-            {
-                throw new AdministracaoException("Permissão não encontrada");
-            }
+            if (permissao == null) throw new AdministracaoException("Permissão não encontrada");
 
             return _mapper.Map<PermissaoResponse>(permissao);
         }
@@ -70,10 +64,7 @@ namespace Dentista.Application.Services
         {
             var permissao = await _roleManager.FindByIdAsync(request.Id);
 
-            if (permissao == null)
-            {
-                throw new AdministracaoException("Permissão não encontrada");
-            }
+            if (permissao == null) throw new AdministracaoException("Permissão não encontrada");
 
             permissao.Name = request.Nome;
             var result = await _roleManager.UpdateAsync(permissao);
@@ -86,6 +77,11 @@ namespace Dentista.Application.Services
             }
 
             return true;
+        }
+
+        public Task<bool> EditarPermissoesUsuarios(IEnumerable<UsuarioPermissaoRequest> request, string idPermissao)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
@@ -29,10 +30,10 @@ namespace Dentista.API.Controllers
                 : BadRequest("Erro ao buscar permissões");
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> BuscarPermissao(string id)
+        [HttpGet("{idPermissao}")]
+        public async Task<IActionResult> BuscarPermissao(string idPermissao)
         {
-            var permissoes = await _service.BuscarPermissao(id);
+            var permissoes = await _service.BuscarPermissao(idPermissao);
 
             return permissoes != null
                 ? Ok(permissoes)
@@ -55,6 +56,16 @@ namespace Dentista.API.Controllers
             var permissaoEditada = await _service.EditarPermisao(request);
 
             return permissaoEditada
+                ? Ok("Permissão editada com sucesso!")
+                : BadRequest("Erro ao editar permissão");
+        }
+
+        [HttpPost("permissoes-usuarios/{idPermissao}")]
+        public async Task<IActionResult> DeletarPermissaoUsuario(List<UsuarioPermissaoRequest> request, string idPermissao)
+        {
+            var permissoesEditadas = await _service.EditarPermissoesUsuarios(request, idPermissao);
+
+            return permissoesEditadas
                 ? Ok("Permissão editada com sucesso!")
                 : BadRequest("Erro ao editar permissão");
         }
