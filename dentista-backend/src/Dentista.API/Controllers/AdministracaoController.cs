@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.Interfaces.Services;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentista.API.Controllers
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(Roles = "Administrador")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdministracaoController : ControllerBase
@@ -29,10 +30,10 @@ namespace Dentista.API.Controllers
                 : BadRequest("Erro ao buscar permissões");
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> BuscarPermissao(string id)
+        [HttpGet("{idPermissao}")]
+        public async Task<IActionResult> BuscarPermissao(string idPermissao)
         {
-            var permissoes = await _service.BuscarPermissao(id);
+            var permissoes = await _service.BuscarPermissao(idPermissao);
 
             return permissoes != null
                 ? Ok(permissoes)
@@ -47,6 +48,36 @@ namespace Dentista.API.Controllers
             return permissaoCadastrada
                 ? Ok("Permissão cadastrada com sucesso!")
                 : BadRequest("Erro ao cadastrar permissão");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditarPermissao(EditarPermissaoRequest request)
+        {
+            var permissaoEditada = await _service.EditarPermisao(request);
+
+            return permissaoEditada
+                ? Ok("Permissão editada com sucesso!")
+                : BadRequest("Erro ao editar permissão");
+        }
+
+        [HttpGet("permissoes-usuarios")]
+        public async Task<IActionResult> ListaPermissaoUsuario()
+        {
+            var permissoesEditadas = await _service.ListaPermissoesUsuarios();
+
+            return permissoesEditadas.Any()
+                ? Ok(permissoesEditadas)
+                : BadRequest("Erro ao buscar os usuarios");
+        }
+
+        [HttpPost("permissoes-usuarios/{idPermissao}")]
+        public async Task<IActionResult> DeletarPermissaoUsuario(List<UsuarioPermissaoRequest> request, string idPermissao)
+        {
+            var permissoesEditadas = await _service.EditarPermissoesUsuarios(request, idPermissao);
+
+            return permissoesEditadas
+                ? Ok("Permissão editada com sucesso!")
+                : BadRequest("Erro ao editar permissão");
         }
     }
 }

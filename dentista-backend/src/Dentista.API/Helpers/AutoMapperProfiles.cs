@@ -44,6 +44,9 @@ namespace Dentista.API.Helpers
             CreateMap<IdentityRole, PermissaoResponse>()
                 .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.NormalizedName))
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+            CreateMap<IdentityUser, UsuarioResponse>()
+                .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.UserName));
         }
     }
 }
