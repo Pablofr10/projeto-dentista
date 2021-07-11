@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
 
 namespace Dentista.API.Dependencies
 {
@@ -17,14 +16,14 @@ namespace Dentista.API.Dependencies
 
         private static void RepositoryDependece(IServiceCollection serviceProvider, string token)
         {
-            IdentityBuilder builder = serviceProvider.AddIdentity<IdentityUser, IdentityRole>(options =>
-               {
-                   options.Password.RequireDigit = false;
-                   options.Password.RequireNonAlphanumeric = false;
-                   options.Password.RequireLowercase = false;
-                   options.Password.RequireUppercase = false;
-                   options.Password.RequiredLength = 10;
-             });
+            var builder = serviceProvider.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 8;
+            });
 
             builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
             builder.AddEntityFrameworkStores<DentistaDbContext>();
@@ -32,10 +31,10 @@ namespace Dentista.API.Dependencies
             builder.AddRoleManager<RoleManager<IdentityRole>>();
             builder.AddSignInManager<SignInManager<IdentityUser>>();
 
-            serviceProvider.AddAuthentication(options =>
+            serviceProvider.AddAuthentication(optionsAutenticate =>
                 {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    optionsAutenticate.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    optionsAutenticate.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddJwtBearer(options =>
                 {
