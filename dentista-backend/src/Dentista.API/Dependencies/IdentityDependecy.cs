@@ -32,7 +32,11 @@ namespace Dentista.API.Dependencies
             builder.AddRoleManager<RoleManager<IdentityRole>>();
             builder.AddSignInManager<SignInManager<IdentityUser>>();
 
-            serviceProvider.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            serviceProvider.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters

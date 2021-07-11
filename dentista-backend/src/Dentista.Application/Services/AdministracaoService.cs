@@ -16,10 +16,13 @@ namespace Dentista.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public AdministracaoService(RoleManager<IdentityRole> roleManager, IMapper mapper)
+        public AdministracaoService(RoleManager<IdentityRole> roleManager,
+            UserManager<IdentityUser> userManager, IMapper mapper)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
             _mapper = mapper;
         }
 
@@ -34,7 +37,7 @@ namespace Dentista.Application.Services
 
         public async Task<PermissaoResponse> BuscarPermissao(string id)
         {
-            var permissao = await _roleManager.Roles.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var permissao = await _roleManager.FindByIdAsync(id);
 
             if (permissao == null) throw new AdministracaoException("Permissão não encontrada");
 
@@ -79,9 +82,34 @@ namespace Dentista.Application.Services
             return true;
         }
 
-        public Task<bool> EditarPermissoesUsuarios(IEnumerable<UsuarioPermissaoRequest> request, string idPermissao)
+        public async Task<bool> EditarPermissoesUsuarios(List<UsuarioPermissaoRequest> request, string idPermissao)
         {
-            throw new System.NotImplementedException();
+            var permissao = await _roleManager.FindByIdAsync(idPermissao);
+
+            if (permissao == null) throw new AdministracaoException("Permissão não encontrada");
+
+            for (var i = 0; i < request.Count(); i++)
+            {
+                var usuario = await _userManager.FindByIdAsync(request[i].IdUsuario);
+
+                IdentityResult result = null;
+
+                if (request[i].IsSelecionado && !await _userManager.IsInRoleAsync(usuario, permissao.Name))
+                    result = await _userManager.AddToRoleAsync(usuario, permissao.Name);
+                else if (!request[i].IsSelecionado && await _userManager.IsInRoleAsync(usuario, permissao.Name))
+                    result = await _userManager.RemoveFromRoleAsync(usuario, permissao.Name);
+                else
+                    continue;
+
+                if (!result.Succeeded)
+                {
+                    var mensagemErro = result.Errors.MensagemErro();
+
+                    throw new AdministracaoException($"Erro ao editar permissões dos usuários. {mensagemErro}");
+                }
+            }
+
+            return true;
         }
     }
 }
