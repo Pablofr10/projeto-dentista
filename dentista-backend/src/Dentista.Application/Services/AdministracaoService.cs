@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dentista.Application.Extensions;
+using Dentista.Core.DTOs;
 using Dentista.Core.DTOs.Request;
 using Dentista.Core.DTOs.Response;
 using Dentista.Core.Exceptions;
@@ -110,6 +111,14 @@ namespace Dentista.Application.Services
             }
 
             return true;
+        }
+
+        public async Task<IEnumerable<UsuarioResponse>> ListaPermissoesUsuarios()
+        {
+            var permissoesUsuarios = _userManager.Users;
+
+            var usuarioRetorno = _mapper.Map<IEnumerable<UsuarioResponse>>(permissoesUsuarios);
+            return usuarioRetorno;
         }
     }
 }
