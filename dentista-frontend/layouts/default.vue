@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-navigation-drawer v-model="drawer" dark permanent expand-on-hover app>
-      <v-list-item class="px-2">
+      <v-list-item>
         <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/women/75.jpg" />
         </v-list-item-avatar>
@@ -52,9 +52,24 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          icon: 'mdi-book-check-outline',
+          title: 'Consultas',
+          to: '/consultas'
+        },
+        {
+          icon: 'mdi-account-supervisor-outline',
+          title: 'Pacientes',
+          to: '/pacientes'
+        },
+        {
+          icon: 'mdi-account-box-multiple-outline',
+          title: 'Profissionais',
+          to: '/profissionais'
+        },
+        {
+          icon: 'mdi-table-settings',
+          title: 'Administração',
+          to: '/pacientes'
         }
       ],
       title: 'Odonto Happy'
