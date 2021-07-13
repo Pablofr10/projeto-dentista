@@ -123,8 +123,9 @@ namespace Dentista.Application.Services
             }
 
             var usuarios = new List<UsuarioPermissaoResponse>();
+            var users = await _userManager.Users.ToListAsync();
 
-            foreach (var user in _userManager.Users)
+            foreach (var user in users)
             {
                 var usuarioPermissao = new UsuarioPermissaoResponse
                 {
