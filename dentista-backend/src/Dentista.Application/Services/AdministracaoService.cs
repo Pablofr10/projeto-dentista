@@ -113,12 +113,38 @@ namespace Dentista.Application.Services
             return true;
         }
 
-        public async Task<IEnumerable<UsuarioResponse>> ListaPermissoesUsuarios()
+        public async Task<IEnumerable<UsuarioPermissaoResponse>> ListaPermissoesUsuarios(string idPermissao)
         {
-            var permissoesUsuarios = _userManager.Users;
+            var permissao = await _roleManager.FindByIdAsync(idPermissao);
 
-            var usuarioRetorno = _mapper.Map<IEnumerable<UsuarioResponse>>(permissoesUsuarios);
-            return usuarioRetorno;
+            if (permissao == null)
+            {
+                throw new AdministracaoException("Permissão não encontrada.");
+            }
+
+            var usuarios = new List<UsuarioPermissaoResponse>();
+
+            foreach (var user in _userManager.Users)
+            {
+                var usuarioPermissao = new UsuarioPermissaoResponse
+                {
+                    Id = user.Id,
+                    UserName = user.UserName
+                };
+
+                if (await _userManager.IsInRoleAsync(user, permissao.Name))
+                {
+                    usuarioPermissao.IsSelecionado = true;
+                }
+                else
+                {
+                    usuarioPermissao.IsSelecionado = false;
+                }
+
+                usuarios.Add(usuarioPermissao);
+            }
+            
+            return usuarios;
         }
     }
 }

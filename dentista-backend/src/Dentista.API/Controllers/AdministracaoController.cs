@@ -60,24 +60,24 @@ namespace Dentista.API.Controllers
                 : BadRequest("Erro ao editar permissão");
         }
 
-        [HttpGet("permissoes-usuarios")]
-        public async Task<IActionResult> ListaPermissaoUsuario()
-        {
-            var permissoesEditadas = await _service.ListaPermissoesUsuarios();
-
-            return permissoesEditadas.Any()
-                ? Ok(permissoesEditadas)
-                : BadRequest("Erro ao buscar os usuarios");
-        }
-
-        [HttpPost("permissoes-usuarios/{idPermissao}")]
-        public async Task<IActionResult> DeletarPermissaoUsuario(List<UsuarioPermissaoRequest> request, string idPermissao)
+        [HttpPut("permissoes-usuarios/{idPermissao}")]
+        public async Task<IActionResult> EditarUsuarioPermissao(List<UsuarioPermissaoRequest> request, string idPermissao)
         {
             var permissoesEditadas = await _service.EditarPermissoesUsuarios(request, idPermissao);
 
             return permissoesEditadas
                 ? Ok("Permissão editada com sucesso!")
                 : BadRequest("Erro ao editar permissão");
+        }
+
+        [HttpGet("buscar-permissoes-usuarios/{idPermissao}")]
+        public async Task<IActionResult> BuscarPermissaoUsuario(string idPermissao)
+        {
+            var usuarios = await _service.ListaPermissoesUsuarios(idPermissao);
+
+            return usuarios != null
+                ? Ok(usuarios)
+                : BadRequest("Erro ao buscar os usuários permissão");
         }
     }
 }
