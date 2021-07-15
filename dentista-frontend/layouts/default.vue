@@ -62,7 +62,7 @@
       />
       <v-spacer />
       <v-btn icon class="ali" @click.stop="miniVariant = !miniVariant">
-        <v-icon color="pink">
+        <v-icon :color="miniVariant ? 'silver' : 'pink'">
           mdi-{{ `${miniVariant ? 'bell' : 'bell-ring'}` }}
         </v-icon>
       </v-btn>
