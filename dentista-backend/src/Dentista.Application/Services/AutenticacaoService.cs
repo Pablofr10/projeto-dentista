@@ -39,6 +39,11 @@ namespace Dentista.Application.Services
 
             };
 
+            if (await _userManager.FindByNameAsync(request.Email) != null)
+            {
+                throw new AutenticacaoException($"Erro ao realizar a autenticação. Email {request.Email} já cadastrado");
+            }
+
             var result = await _userManager.CreateAsync(usuarioGravar, request.Password);
 
             if (!result.Succeeded)

@@ -1,5 +1,6 @@
 using System;
 using Dentista.API.Dependencies;
+using Dentista.API.Middlewares;
 using Dentista.Infrastructure.Commom;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -40,6 +41,7 @@ namespace Dentista.API
             IdentityDependecy.Register(services, TokenJwt);
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddCors();
 
             services.AddControllers(opt =>
             {
@@ -89,12 +91,19 @@ namespace Dentista.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dentista.API v1"));
             }
 
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true)
+                .AllowCredentials());
+
             app.UseAuthentication();
             app.UseHttpsRedirection();
             
             app.UseRouting();
 
             app.UseAuthorization();
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

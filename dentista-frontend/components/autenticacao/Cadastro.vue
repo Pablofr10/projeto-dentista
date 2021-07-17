@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-title class="text-h4 text--primary">
-      Login
+      Cadastro
     </v-card-title>
 
     <v-card-text>
@@ -9,12 +9,14 @@
         {{ mensagem }}
       </v-alert>
       <v-text-field v-model="email" label="Usuário" />
-      <v-text-field v-model="password" label="Senha" />
-      <v-btn block color="success" @click="login()">
-        Entrar
-      </v-btn>
-      <v-btn text class="mt-4" color="primary">
-        Esqueceu a senha?
+      <v-text-field v-model="password" type="password" label="Senha" />
+      <v-text-field
+        v-model="senhaConfirmada"
+        type="password"
+        label="Confirmar Senha"
+      />
+      <v-btn block color="primary" @click="cadastrar()">
+        Cadastrar
       </v-btn>
     </v-card-text>
   </div>
@@ -30,16 +32,32 @@ export default {
       erroMensagem: false
     }
   },
+  watch: {
+    senhaConfirmada (senha) {
+      if (senha.length < 8) {
+        return
+      }
+
+      this.mensagem = ''
+      this.erroMensagem = false
+
+      if (senha !== this.password) {
+        this.mensagem = 'As senhas não coincidem'
+        this.erroMensagem = true
+      }
+    }
+  },
   methods: {
-    async login () {
+    async cadastrar () {
       try {
         await this.$axios
-          .$post('/Autenticacao/login', {
+          .$post('/Autenticacao/cadastrar', {
             email: this.email,
             password: this.password
           })
           .then((res) => {
-            window.localStorage.setItem('token', res.token)
+            // eslint-disable-next-line no-console
+            this.$emit('cadastrado', res)
           })
       } catch (error) {
         const { Mensagem } = error.response.data
