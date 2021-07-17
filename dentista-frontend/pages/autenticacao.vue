@@ -23,7 +23,8 @@ export default {
   layout: 'empty',
   data () {
     return {
-      isLogin: true
+      isLogin: true,
+      loading: false
     }
   }
 }
