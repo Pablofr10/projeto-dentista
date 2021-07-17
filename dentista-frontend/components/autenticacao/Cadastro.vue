@@ -50,19 +50,19 @@ export default {
   methods: {
     async cadastrar () {
       try {
-        const cadastrar = await this.$axios.$post('/Autenticacao/cadastrar', {
-          email: this.email,
-          password: this.password
-        })
-
-        // eslint-disable-next-line no-console
-        console.log(cadastrar)
+        await this.$axios
+          .$post('/Autenticacao/cadastrar', {
+            email: this.email,
+            password: this.password
+          })
+          .then((res) => {
+            // eslint-disable-next-line no-console
+            this.$emit('cadastrado', res)
+          })
       } catch (error) {
         const { Mensagem } = error.response.data
-        // eslint-disable-next-line no-console
         this.mensagem = Mensagem
         this.erroMensagem = true
-        // eslint-disable-next-line no-console
       }
     }
   }
