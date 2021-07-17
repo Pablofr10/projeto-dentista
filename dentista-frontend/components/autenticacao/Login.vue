@@ -1,14 +1,5 @@
 <template>
-  <v-card
-    :loading="loading"
-    class="mx-auto my-12"
-    max-width="374"
-    elevation="5"
-  >
-    <template slot="progress">
-      <v-progress-linear color="deep-purple" height="10" indeterminate />
-    </template>
-
+  <div>
     <v-card-title class="text-h4 text--primary">
       Login
     </v-card-title>
@@ -23,12 +14,7 @@
         Esqueceu a senha?
       </v-btn>
     </v-card-text>
-    <v-card-actions>
-      <v-btn text color="teal accent-4" @click="reveal = true">
-        cadastrar
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+  </div>
 </template>
 <script>
 export default {}
