@@ -24,17 +24,19 @@
                     d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                   />
                 </svg>
-                <span class="font-bold">Better Dev</span>
+                <span class="font-bold">Clinica VueNet</span>
               </a>
             </div>
             <!-- primary nav -->
             <div class="hidden md:flex items-center space-x-1">
-              <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900"
-                >Features</a
+              <a
+                href="#"
+                class="py-5 px-3 text-gray-700 hover:text-gray-900"
+                v-for="menu in menus"
+                :key="menu.id"
               >
-              <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900"
-                >Pricing</a
-              >
+                {{ menu.nome }}
+              </a>
             </div>
           </div>
           <!-- secoundary nav-->
@@ -87,8 +89,14 @@ import { ref } from "vue";
 export default {
   setup() {
     const mostraMenuMobile = ref(false);
+    const menus = [
+      { id: 1, nome: "Consultas", rota: "/consultas" },
+      { id: 2, nome: "Pacientes", rota: "/paciente" },
+      { id: 3, nome: "Profissional", rota: "/profissional" }
+    ];
     return {
-      mostraMenuMobile
+      mostraMenuMobile,
+      menus
     };
   }
 };
