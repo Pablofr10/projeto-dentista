@@ -1,6 +1,7 @@
 <template>
   <div>
     Paciente
+    <font-awesome-icon icon="phone" />
   </div>
 </template>
 
