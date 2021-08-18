@@ -1,8 +1,4 @@
-﻿using System.Net;
-using Dentista.Core.DTOs.Response;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Builder;
 
 namespace Dentista.API.Middlewares
 {
