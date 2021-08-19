@@ -81,7 +81,9 @@
       </div>
     </nav>
 
-    <slot></slot>
+    <div class="px-3">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
