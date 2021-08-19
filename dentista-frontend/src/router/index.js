@@ -15,6 +15,11 @@ const routes = [
     path: "/paciente",
     name: "Paciente",
     component: lazyLoad("Paciente")
+  },
+  {
+    path: "/consultas",
+    name: "Consultas",
+    component: lazyLoad("Consulta")
   }
 ];
 
