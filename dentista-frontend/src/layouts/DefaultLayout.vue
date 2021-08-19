@@ -29,14 +29,15 @@
             </div>
             <!-- primary nav -->
             <div class="hidden md:flex items-center space-x-1">
-              <a
+              <router-link
                 href="#"
                 class="py-5 px-3 text-gray-700 hover:text-gray-900"
                 v-for="menu in menus"
+                :to="menu.rota"
                 :key="menu.id"
               >
                 {{ menu.nome }}
-              </a>
+              </router-link>
             </div>
           </div>
           <!-- secoundary nav-->
@@ -80,7 +81,9 @@
       </div>
     </nav>
 
-    <slot></slot>
+    <div class="px-3">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
