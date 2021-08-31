@@ -38,7 +38,7 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              <tr>
+              <tr v-for="consulta in object.consultas" :key="consulta.id">
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="flex-shrink-0 h-10 w-10">
@@ -50,29 +50,43 @@
                     </div>
                     <div class="ml-4">
                       <div class="text-sm font-medium text-gray-900">
-                        Jane Cooper
+                        {{ consulta.paciente }}
                       </div>
                       <div class="text-sm text-gray-500">
-                        jane.cooper@example.com
+                        {{ formataData(consulta.dataConsulta) }}
                       </div>
                     </div>
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm text-gray-900">
-                    Regional Paradigm Technician
+                    {{ consulta.profissional }}
                   </div>
-                  <div class="text-sm text-gray-500">Optimization</div>
+                  <div class="text-sm text-gray-500">
+                    {{ especialidadeFormatada(consulta.especialidades) }}
+                  </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span
-                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                    :class="corBackgroundCard(consulta.status)"
                   >
-                    Active
+                    {{ consulta.nomeStatus }}
                   </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  Admin
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                  v-if="consulta.pagamento.status === 1"
+                >
+                  <fa icon="exclamation-triangle"></fa>
+                  Pendente
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                  v-else
+                >
+                  <fa icon="check-circle"></fa>
+                  {{ consulta.pagamento.status === 3 ? "Convênio" : "Pago" }}
                 </td>
                 <td
                   class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
@@ -82,8 +96,6 @@
                   >
                 </td>
               </tr>
-
-              <!-- More people... -->
             </tbody>
           </table>
         </div>
@@ -93,7 +105,51 @@
 </template>
 
 <script>
-export default {};
+import { onMounted, reactive } from "vue";
+import api from "../service";
+import { dataAtualFormatada } from "../utils/dataFormatada";
+export default {
+  setup() {
+    const object = reactive({
+      consultas: []
+    });
+
+    onMounted(async () => {
+      const { data } = await api.get("Consulta/");
+      object.consultas = data;
+      console.log(object.consultas);
+    });
+
+    function especialidadeFormatada(especialidades) {
+      return especialidades.join(", ");
+    }
+
+    function formataData(dataConsulta) {
+      return dataAtualFormatada(dataConsulta);
+    }
+
+    function corBackgroundCard(status) {
+      switch (status) {
+        case 1:
+          return "text-silver-200 bg-yellow-300";
+        case 2:
+          return "text-green-800 bg-green-100";
+        case 3:
+          return "text-red-900 bg-red-100";
+        default:
+          return "text-indigo-400 bg-indigo-100";
+      }
+    }
+
+    return {
+      object,
+      especialidadeFormatada,
+      dataAtualFormatada,
+      formataData,
+      corBackgroundCard
+    };
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

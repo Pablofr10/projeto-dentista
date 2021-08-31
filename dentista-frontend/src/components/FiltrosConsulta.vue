@@ -137,7 +137,6 @@
         </div>
       </div>
     </form>
-    {{ range }}
   </div>
 </template>
 
