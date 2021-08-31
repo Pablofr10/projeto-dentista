@@ -38,7 +38,7 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              <tr>
+              <tr v-for="consulta in object.consultas" :key="consulta.id">
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="flex-shrink-0 h-10 w-10">
@@ -50,19 +50,21 @@
                     </div>
                     <div class="ml-4">
                       <div class="text-sm font-medium text-gray-900">
-                        Jane Cooper
+                        {{ consulta.paciente }}
                       </div>
                       <div class="text-sm text-gray-500">
-                        jane.cooper@example.com
+                        {{ dataAtualFormatada(consulta.dataConsulta) }}
                       </div>
                     </div>
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm text-gray-900">
-                    Regional Paradigm Technician
+                    {{ consulta.profissional }}
                   </div>
-                  <div class="text-sm text-gray-500">Optimization</div>
+                  <div class="text-sm text-gray-500">
+                    {{ especialidadeFormatada(consulta.especialidades) }}
+                  </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span
@@ -93,7 +95,44 @@
 </template>
 
 <script>
-export default {};
+import { onMounted, reactive } from "vue";
+import api from "../service";
+export default {
+  setup() {
+    const object = reactive({
+      consultas: []
+    });
+
+    onMounted(async () => {
+      const { data } = await api.get("Consulta/");
+      object.consultas = data;
+      console.log(object.consultas);
+    });
+
+    function especialidadeFormatada(especialidades) {
+      return especialidades.join(", ");
+    }
+
+    function dataAtualFormatada(dataConsulta) {
+      var data = new Date(dataConsulta),
+        dia = data.getDate().toString(),
+        diaF = dia.length == 1 ? "0" + dia : dia,
+        mes = (data.getMonth() + 1).toString(),
+        mesF = mes.length == 1 ? "0" + mes : mes,
+        anoF = data.getFullYear(),
+        hora = data.getHours(),
+        minutos = data.getMinutes();
+
+      return `${diaF}/${mesF}/${anoF} ${hora}:${minutos}`;
+    }
+
+    return {
+      object,
+      especialidadeFormatada,
+      dataAtualFormatada
+    };
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

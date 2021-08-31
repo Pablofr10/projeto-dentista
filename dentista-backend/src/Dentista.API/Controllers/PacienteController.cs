@@ -50,7 +50,7 @@ namespace Dentista.API.Controllers
         }
 
         [HttpPut("{idPaciente}")]
-        public async Task<IActionResult> PostPaciente(int idPaciente, PacienteDto paciente)
+        public async Task<IActionResult> PutPaciente(int idPaciente, PacienteDto paciente)
         {
             var isPacienteAdicionado = await _service.AtualizarPaciente(idPaciente, paciente);
 
