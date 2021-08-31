@@ -74,8 +74,19 @@
                     {{ consulta.nomeStatus }}
                   </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  Admin
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                  v-if="consulta.pagamento.status === 1"
+                >
+                  <fa icon="exclamation-triangle"></fa>
+                  Pendente
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                  v-else
+                >
+                  <fa icon="check-circle"></fa>
+                  {{ consulta.pagamento.status === 3 ? "Convênio" : "Pago" }}
                 </td>
                 <td
                   class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
