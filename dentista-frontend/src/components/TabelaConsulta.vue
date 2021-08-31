@@ -53,7 +53,7 @@
                         {{ consulta.paciente }}
                       </div>
                       <div class="text-sm text-gray-500">
-                        {{ dataAtualFormatada(consulta.dataConsulta) }}
+                        {{ formataData(consulta.dataConsulta) }}
                       </div>
                     </div>
                   </div>
@@ -68,9 +68,10 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span
-                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                    :class="corBackgroundCard(consulta.status)"
                   >
-                    Active
+                    {{ consulta.nomeStatus }}
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -84,8 +85,6 @@
                   >
                 </td>
               </tr>
-
-              <!-- More people... -->
             </tbody>
           </table>
         </div>
@@ -97,6 +96,7 @@
 <script>
 import { onMounted, reactive } from "vue";
 import api from "../service";
+import { dataAtualFormatada } from "../utils/dataFormatada";
 export default {
   setup() {
     const object = reactive({
@@ -113,23 +113,29 @@ export default {
       return especialidades.join(", ");
     }
 
-    function dataAtualFormatada(dataConsulta) {
-      var data = new Date(dataConsulta),
-        dia = data.getDate().toString(),
-        diaF = dia.length == 1 ? "0" + dia : dia,
-        mes = (data.getMonth() + 1).toString(),
-        mesF = mes.length == 1 ? "0" + mes : mes,
-        anoF = data.getFullYear(),
-        hora = data.getHours(),
-        minutos = data.getMinutes();
+    function formataData(dataConsulta) {
+      return dataAtualFormatada(dataConsulta);
+    }
 
-      return `${diaF}/${mesF}/${anoF} ${hora}:${minutos}`;
+    function corBackgroundCard(status) {
+      switch (status) {
+        case 1:
+          return "text-silver-200 bg-yellow-300";
+        case 2:
+          return "text-green-800 bg-green-100";
+        case 3:
+          return "text-red-900 bg-red-100";
+        default:
+          return "text-indigo-400 bg-indigo-100";
+      }
     }
 
     return {
       object,
       especialidadeFormatada,
-      dataAtualFormatada
+      dataAtualFormatada,
+      formataData,
+      corBackgroundCard
     };
   }
 };
