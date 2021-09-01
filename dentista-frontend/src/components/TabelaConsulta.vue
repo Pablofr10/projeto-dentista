@@ -78,14 +78,14 @@
                   class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                   v-if="consulta.pagamento.status === 1"
                 >
-                  <fa icon="exclamation-triangle"></fa>
+                  <fa icon="exclamation-triangle" color="orange"></fa>
                   Pendente
                 </td>
                 <td
                   class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                   v-else
                 >
-                  <fa icon="check-circle"></fa>
+                  <fa icon="check-circle" color="green"></fa>
                   {{ consulta.pagamento.status === 3 ? "Convênio" : "Pago" }}
                 </td>
                 <td
