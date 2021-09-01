@@ -1,9 +1,19 @@
 import {
   faSearch,
   faExclamationTriangle,
-  faCheckCircle
+  faCheckCircle,
+  faPen,
+  faEye,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 
-const icons = [faSearch, faExclamationTriangle, faCheckCircle];
+const icons = [
+  faSearch,
+  faExclamationTriangle,
+  faCheckCircle,
+  faPen,
+  faEye,
+  faTrash
+];
 
 export default icons;

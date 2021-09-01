@@ -91,9 +91,23 @@
                 <td
                   class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                 >
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900"
-                    >Edit</a
-                  >
+                  <router-link class="mr-3" :to="`consulta/${1}`">
+                    <fa icon="eye" class="text-xl hover:text-gray-800"></fa>
+                  </router-link>
+                  <router-link class="mr-3" :to="`consulta/${1}`">
+                    <fa
+                      icon="pen"
+                      class="text-xl hover:text-blue-700"
+                      color="blue"
+                    ></fa>
+                  </router-link>
+                  <router-link :to="`consulta/${1}`">
+                    <fa
+                      icon="trash"
+                      class="text-xl hover:text-red-700 "
+                      color="red"
+                    ></fa>
+                  </router-link>
                 </td>
               </tr>
             </tbody>
