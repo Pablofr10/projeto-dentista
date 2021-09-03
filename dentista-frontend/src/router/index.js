@@ -20,6 +20,11 @@ const routes = [
     path: "/consultas",
     name: "Consultas",
     component: lazyLoad("Consulta")
+  },
+  {
+    path: "/consultas/adicionar",
+    name: "Adicionar",
+    component: lazyLoad("Consulta")
   }
 ];
 
