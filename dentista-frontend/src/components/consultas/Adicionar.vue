@@ -127,15 +127,32 @@
                   <label
                     for="first-name"
                     class="block text-sm font-medium text-gray-700"
-                    >First name</label
+                    >Especialidades</label
                   >
-                  <input
-                    type="text"
-                    name="first-name"
-                    id="first-name"
-                    autocomplete="given-name"
-                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  />
+                  <div class="flex flex-wrap">
+                    <div
+                      class="flex items-start w-auto p-2"
+                      v-for="especialidade in especialidades"
+                      :key="especialidade.id"
+                    >
+                      <div class="flex items-center h-5">
+                        <input
+                          id="comments"
+                          name="comments"
+                          type="checkbox"
+                          :value="especialidade"
+                          class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                        />
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <label
+                          for="comments"
+                          class="font-medium text-gray-700"
+                          >{{ especialidade.nome }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="col-span-6 sm:col-span-3">
@@ -414,7 +431,7 @@
 </template>
 
 <script>
-import { reactive, ref, toRefs } from "@vue/reactivity";
+import { reactive, ref, toRefs, onMounted } from "vue";
 import service from "../../service/index";
 
 export default {
@@ -423,7 +440,8 @@ export default {
     const mensagemErro = ref("");
 
     const dadosPaciente = reactive({
-      informacoesPaciente: []
+      informacoesPaciente: [],
+      especialidades: []
     });
 
     function buscarPaciente() {
@@ -438,9 +456,17 @@ export default {
       dadosPaciente.informacoesPaciente = [];
       const { data } = await service.get(`paciente/${codigoPaciente.value}`);
       dadosPaciente.informacoesPaciente = data;
-      console.log(dadosPaciente.informacoesPaciente);
     }
 
+    async function buscaEspecialidade() {
+      const { data } = await service.get(`especialidade`);
+      dadosPaciente.especialidades = data;
+    }
+
+    onMounted(() => {
+      buscaEspecialidade();
+      console.log(dadosPaciente.especialidades);
+    });
     return {
       ...toRefs(dadosPaciente),
       buscarPaciente,
