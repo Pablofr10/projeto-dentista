@@ -159,15 +159,30 @@
                   <label
                     for="last-name"
                     class="block text-sm font-medium text-gray-700"
-                    >Last name</label
+                    >Profissional</label
                   >
-                  <input
-                    type="text"
-                    name="last-name"
-                    id="last-name"
-                    autocomplete="family-name"
-                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  />
+                  <select
+                    class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"
+                    placeholder="Regular input"
+                  >
+                    <option
+                      v-for="profissional in profissionais"
+                      :key="profissional.id"
+                    >
+                      {{ profissional.nome }}
+                    </option>
+                  </select>
+                  <div
+                    class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+                  >
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                      <path
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                        fill-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
                 </div>
 
                 <div class="col-span-6 sm:col-span-4">
@@ -441,7 +456,8 @@ export default {
 
     const dadosPaciente = reactive({
       informacoesPaciente: [],
-      especialidades: []
+      especialidades: [],
+      profissionais: []
     });
 
     function buscarPaciente() {
@@ -463,9 +479,15 @@ export default {
       dadosPaciente.especialidades = data;
     }
 
+    async function buscaProfissionais() {
+      const { data } = await service.get(`profissional`);
+      dadosPaciente.profissionais = data;
+      console.log(data);
+    }
+
     onMounted(() => {
       buscaEspecialidade();
-      console.log(dadosPaciente.especialidades);
+      buscaProfissionais();
     });
     return {
       ...toRefs(dadosPaciente),
